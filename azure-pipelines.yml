@@ -18,5 +18,8 @@ steps:
   displayName: 'Use Python $(python.version)'
 - script: cd scripts/aelf-node/ && bash start.sh
   displayName: 'deploy node' 
+- script: |
+    python -m pip install --upgrade pip
+    pip install coincurve base58 requests protobuf
 - script: cd src && python test.py
   displayName: 'pytest'
