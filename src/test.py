@@ -7,7 +7,7 @@ from aelf import AElf, AElfToolkit
 
 
 class AElfTest(unittest.TestCase):
-    _url = 'http://192.168.197.42:8000'
+    _url = 'http://13.52.177.95:8000'
     _private_key = None
     _public_key = None
 
@@ -119,6 +119,25 @@ class AElfTest(unittest.TestCase):
         self.assertTrue(len(candidates) >= 0)
         for candidate in candidates:
             print('  > candidate:', candidate['public_key'], candidate['address'])
+
+    def test_transaction_fees(self):
+        logs = [
+            {
+                "Address": "25CecrU94dmMdbhC3LWMKxtoaL4Wv8PChGvVJM6PxkHAyvXEhB",
+                "Name": "TransactionFeeCharged",
+                "Indexed": None,
+                "NonIndexed": "CgNFTEYQ8OGPHw=="
+            },
+            {
+                "Address": "25CecrU94dmMdbhC3LWMKxtoaL4Wv8PChGvVJM6PxkHAyvXEhB",
+                "Name": "ResourceTokenCharged",
+                "Indexed": None,
+                "NonIndexed": "CgNFTEYQ8OGPHw=="
+            },
+        ]
+        transaction_fees = self.chain.get_transaction_fees(logs)
+        self.assertEqual(transaction_fees[0]['symbol'], 'ELF')
+        self.assertEqual(transaction_fees[0]['amount'], 32635000)
 
     def test_helpers(self):
         is_connected = self.chain.is_connected()

@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0btypes.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"#\n\x0bStringInput\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\" \n\tMinerList\x12\x13\n\x0bpublic_keys\x18\x01 \x03(\x0c\"\x15\n\x04Hash\x12\r\n\x05value\x18\x01 \x01(\x0c\"\x18\n\x07\x41\x64\x64ress\x12\r\n\x05value\x18\x01 \x01(\x0c\"\xb8\x01\n\x0bTransaction\x12\x1e\n\x0c\x66rom_address\x18\x01 \x01(\x0b\x32\x08.Address\x12\x1c\n\nto_address\x18\x02 \x01(\x0b\x32\x08.Address\x12\x18\n\x10ref_block_number\x18\x03 \x01(\x03\x12\x18\n\x10ref_block_prefix\x18\x04 \x01(\x0c\x12\x13\n\x0bmethod_name\x18\x05 \x01(\t\x12\x0e\n\x06params\x18\x06 \x01(\x0c\x12\x12\n\tsignature\x18\x90N \x01(\x0c\"\xca\x02\n\x14\x45lectionVotingRecord\x12\x17\n\x05voter\x18\x01 \x01(\x0b\x32\x08.Address\x12\x11\n\tcandidate\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x12\x12\x13\n\x0bterm_number\x18\x04 \x01(\x12\x12\x16\n\x07vote_id\x18\x05 \x01(\x0b\x32\x05.Hash\x12\x11\n\tlock_time\x18\x07 \x01(\x12\x12\x34\n\x10unlock_timestamp\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x36\n\x12withdraw_timestamp\x18\x0b \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0evote_timestamp\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0cis_withdrawn\x18\r \x01(\x08\"\xa7\x02\n\x0b\x45lectorVote\x12\'\n\x18\x61\x63tive_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12*\n\x1bwithdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12!\n\x19\x61\x63tive_voted_votes_amount\x18\x03 \x01(\x12\x12\x1e\n\x16\x61ll_voted_votes_amount\x18\x04 \x01(\x12\x12\x34\n\x15\x61\x63tive_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x36\n\x17withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x12\n\npublic_key\x18\x07 \x01(\x0c\"\xdf\x02\n\rCandidateVote\x12\x30\n!obtained_active_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12\x33\n$obtained_withdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12*\n\"obtained_active_voted_votes_amount\x18\x03 \x01(\x12\x12\'\n\x1f\x61ll_obtained_voted_votes_amount\x18\x04 \x01(\x12\x12=\n\x1eobtained_active_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12?\n obtained_withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x12\n\npublic_key\x18\x07 \x01(\x0c\"\x1f\n\x0ePublicKeysList\x12\r\n\x05value\x18\x01 \x03(\x0c\"9\n\x17\x43ontractDeploymentInput\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\x11\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\">\n\x13\x43ontractUpdateInput\x12\x19\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\"\x8a\x01\n\x17\x43rossChainTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x12\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x13\n\x0bto_chain_id\x18\x05 \x01(\x05\x12\x16\n\x0eissue_chain_id\x18\x06 \x01(\x05\"8\n\nMerklePath\x12*\n\x11merkle_path_nodes\x18\x01 \x03(\x0b\x32\x0f.MerklePathNode\"A\n\x0eMerklePathNode\x12\x13\n\x04hash\x18\x01 \x01(\x0b\x32\x05.Hash\x12\x1a\n\x12is_left_child_node\x18\x02 \x01(\x08\"\x97\x01\n\x1b\x43rossChainReceiveTokenInput\x12\x15\n\rfrom_chain_id\x18\x01 \x01(\x05\x12\x1b\n\x13parent_chain_height\x18\x02 \x01(\x03\x12\"\n\x1atransfer_transaction_bytes\x18\x03 \x01(\x0c\x12 \n\x0bmerkle_path\x18\x04 \x01(\x0b\x32\x0b.MerklePath\"#\n\x11GetTokenInfoInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\":\n\x0fGetBalanceInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\"L\n\x10GetBalanceOutput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x12\"P\n\nIssueInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12\x12\x0c\n\x04memo\x18\x03 \x01(\t\x12\x14\n\x02to\x18\x04 \x01(\x0b\x32\x08.Address\"S\n\rTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x12\x12\x0c\n\x04memo\x18\x04 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\x0btypes.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"#\n\x0bStringInput\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\" \n\tMinerList\x12\x13\n\x0bpublic_keys\x18\x01 \x03(\x0c\"\x15\n\x04Hash\x12\r\n\x05value\x18\x01 \x01(\x0c\"\x18\n\x07\x41\x64\x64ress\x12\r\n\x05value\x18\x01 \x01(\x0c\"\xb8\x01\n\x0bTransaction\x12\x1e\n\x0c\x66rom_address\x18\x01 \x01(\x0b\x32\x08.Address\x12\x1c\n\nto_address\x18\x02 \x01(\x0b\x32\x08.Address\x12\x18\n\x10ref_block_number\x18\x03 \x01(\x03\x12\x18\n\x10ref_block_prefix\x18\x04 \x01(\x0c\x12\x13\n\x0bmethod_name\x18\x05 \x01(\t\x12\x0e\n\x06params\x18\x06 \x01(\x0c\x12\x12\n\tsignature\x18\x90N \x01(\x0c\"\xca\x02\n\x14\x45lectionVotingRecord\x12\x17\n\x05voter\x18\x01 \x01(\x0b\x32\x08.Address\x12\x11\n\tcandidate\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x12\x12\x13\n\x0bterm_number\x18\x04 \x01(\x12\x12\x16\n\x07vote_id\x18\x05 \x01(\x0b\x32\x05.Hash\x12\x11\n\tlock_time\x18\x07 \x01(\x12\x12\x34\n\x10unlock_timestamp\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x36\n\x12withdraw_timestamp\x18\x0b \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0evote_timestamp\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0cis_withdrawn\x18\r \x01(\x08\"\xa7\x02\n\x0b\x45lectorVote\x12\'\n\x18\x61\x63tive_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12*\n\x1bwithdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12!\n\x19\x61\x63tive_voted_votes_amount\x18\x03 \x01(\x12\x12\x1e\n\x16\x61ll_voted_votes_amount\x18\x04 \x01(\x12\x12\x34\n\x15\x61\x63tive_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x36\n\x17withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x12\n\npublic_key\x18\x07 \x01(\x0c\"\xdf\x02\n\rCandidateVote\x12\x30\n!obtained_active_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12\x33\n$obtained_withdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12*\n\"obtained_active_voted_votes_amount\x18\x03 \x01(\x12\x12\'\n\x1f\x61ll_obtained_voted_votes_amount\x18\x04 \x01(\x12\x12=\n\x1eobtained_active_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12?\n obtained_withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x12\n\npublic_key\x18\x07 \x01(\x0c\"\x1f\n\x0ePublicKeysList\x12\r\n\x05value\x18\x01 \x03(\x0c\"9\n\x17\x43ontractDeploymentInput\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\x11\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\">\n\x13\x43ontractUpdateInput\x12\x19\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\"\x8a\x01\n\x17\x43rossChainTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x12\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x13\n\x0bto_chain_id\x18\x05 \x01(\x05\x12\x16\n\x0eissue_chain_id\x18\x06 \x01(\x05\"8\n\nMerklePath\x12*\n\x11merkle_path_nodes\x18\x01 \x03(\x0b\x32\x0f.MerklePathNode\"A\n\x0eMerklePathNode\x12\x13\n\x04hash\x18\x01 \x01(\x0b\x32\x05.Hash\x12\x1a\n\x12is_left_child_node\x18\x02 \x01(\x08\"\x97\x01\n\x1b\x43rossChainReceiveTokenInput\x12\x15\n\rfrom_chain_id\x18\x01 \x01(\x05\x12\x1b\n\x13parent_chain_height\x18\x02 \x01(\x03\x12\"\n\x1atransfer_transaction_bytes\x18\x03 \x01(\x0c\x12 \n\x0bmerkle_path\x18\x04 \x01(\x0b\x32\x0b.MerklePath\"#\n\x11GetTokenInfoInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\":\n\x0fGetBalanceInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\"L\n\x10GetBalanceOutput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x12\"P\n\nIssueInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12\x12\x0c\n\x04memo\x18\x03 \x01(\t\x12\x14\n\x02to\x18\x04 \x01(\x0b\x32\x08.Address\"S\n\rTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x12\x12\x0c\n\x04memo\x18\x04 \x01(\t\"7\n\x15TransactionFeeCharged\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12\"6\n\x14ResourceTokenCharged\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12\x62\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -976,6 +976,82 @@ _TRANSFERINPUT = _descriptor.Descriptor(
   serialized_end=2256,
 )
 
+
+_TRANSACTIONFEECHARGED = _descriptor.Descriptor(
+  name='TransactionFeeCharged',
+  full_name='TransactionFeeCharged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='TransactionFeeCharged.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='TransactionFeeCharged.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2258,
+  serialized_end=2313,
+)
+
+
+_RESOURCETOKENCHARGED = _descriptor.Descriptor(
+  name='ResourceTokenCharged',
+  full_name='ResourceTokenCharged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='ResourceTokenCharged.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='ResourceTokenCharged.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2315,
+  serialized_end=2369,
+)
+
 _TRANSACTION.fields_by_name['from_address'].message_type = _ADDRESS
 _TRANSACTION.fields_by_name['to_address'].message_type = _ADDRESS
 _ELECTIONVOTINGRECORD.fields_by_name['voter'].message_type = _ADDRESS
@@ -1020,6 +1096,8 @@ DESCRIPTOR.message_types_by_name['GetBalanceInput'] = _GETBALANCEINPUT
 DESCRIPTOR.message_types_by_name['GetBalanceOutput'] = _GETBALANCEOUTPUT
 DESCRIPTOR.message_types_by_name['IssueInput'] = _ISSUEINPUT
 DESCRIPTOR.message_types_by_name['TransferInput'] = _TRANSFERINPUT
+DESCRIPTOR.message_types_by_name['TransactionFeeCharged'] = _TRANSACTIONFEECHARGED
+DESCRIPTOR.message_types_by_name['ResourceTokenCharged'] = _RESOURCETOKENCHARGED
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StringInput = _reflection.GeneratedProtocolMessageType('StringInput', (_message.Message,), {
@@ -1161,6 +1239,20 @@ TransferInput = _reflection.GeneratedProtocolMessageType('TransferInput', (_mess
   # @@protoc_insertion_point(class_scope:TransferInput)
   })
 _sym_db.RegisterMessage(TransferInput)
+
+TransactionFeeCharged = _reflection.GeneratedProtocolMessageType('TransactionFeeCharged', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSACTIONFEECHARGED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:TransactionFeeCharged)
+  })
+_sym_db.RegisterMessage(TransactionFeeCharged)
+
+ResourceTokenCharged = _reflection.GeneratedProtocolMessageType('ResourceTokenCharged', (_message.Message,), {
+  'DESCRIPTOR' : _RESOURCETOKENCHARGED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:ResourceTokenCharged)
+  })
+_sym_db.RegisterMessage(ResourceTokenCharged)
 
 
 # @@protoc_insertion_point(module_scope)
