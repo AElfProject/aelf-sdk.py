@@ -7,7 +7,7 @@ from aelf import AElf, AElfToolkit
 
 
 class AElfTest(unittest.TestCase):
-    _url = 'http://127.0.0.1:8000'
+    _url = 'http://127.0.0.1:8001'
     _private_key = None
     _public_key = None
 
@@ -100,9 +100,9 @@ class AElfTest(unittest.TestCase):
     def test_network_api(self):
         print('# get_network_info', self.chain.get_network_info())
         print('# remove_peer')
-        self.assertTrue(self.chain.remove_peer('127.0.0.1:6801'))
+        self.assertTrue(self.chain.remove_peer('127.0.0.1:6800'))
         print('# add_peer')
-        self.assertTrue(self.chain.add_peer('127.0.0.1:6801'))
+        self.assertTrue(self.chain.add_peer('127.0.0.1:6800'))
 
     def test_miner_api(self):
         balance = self.toolkit.get_balance('ELF', '28Y8JA1i2cN6oHvdv7EraXJr9a1gY6D1PpJXw9QtRMRwKcBQMK')
