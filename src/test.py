@@ -102,7 +102,7 @@ class AElfTest(unittest.TestCase):
         print('# remove_peer')
         self.assertTrue(self.chain.remove_peer('127.0.0.1:6800'))
         print('# add_peer')
-        self.assertTrue(self.chain.add_peer('127.0.0.1:6800'))
+        self.assertFalse(self.chain.add_peer('127.0.0.1:6800'))
 
     def test_miner_api(self):
         balance = self.toolkit.get_balance('ELF', '28Y8JA1i2cN6oHvdv7EraXJr9a1gY6D1PpJXw9QtRMRwKcBQMK')
