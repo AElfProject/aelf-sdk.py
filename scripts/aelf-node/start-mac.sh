@@ -8,3 +8,4 @@ cp scripts/aelf-node/keys/SD6BXDrKT2syNd1WehtPyRo3dPBiXqfGUj8UJym7YP9W9RynM.json
 cp scripts/aelf-node/app* aelf/
 echo "start node"
 cd aelf && dotnet AElf.Launcher.dll >/dev/null 2>&1 &
+sleep 30
