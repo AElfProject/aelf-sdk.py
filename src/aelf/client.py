@@ -136,7 +136,7 @@ class AElf(object):
         :return: executed result
         """
         return requests.post('%s/blockchain/executeRawTransaction' % self._url,
-                             json=raw_transaction, headers=self._post_request_header).json()
+                             json=raw_transaction, headers=self._post_request_header).content
 
     def get_transaction_result(self, transaction_id):
         """

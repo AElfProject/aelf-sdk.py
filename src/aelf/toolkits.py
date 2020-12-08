@@ -145,7 +145,7 @@ class AElfToolkit(object):
         miner_list = MinerList()
         miner_list.ParseFromString(bytes.fromhex(raw_miner_list.decode()))
 
-        for public_key in miner_list.public_keys:
+        for public_key in miner_list.pubkeys:
             current_miners.append(self._build_node_info(public_key))
         return current_miners
 
