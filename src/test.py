@@ -3,11 +3,10 @@ import unittest
 from coincurve import PrivateKey
 
 from aelf import Transaction
-from aelf import AElf, AElfToolkit
-
+from aelf import AElf, AElfToolkit, KeyPair
 
 class AElfTest(unittest.TestCase):
-    _url = 'http://127.0.0.1:8001'
+    _url = 'http://127.0.0.1:8000'
     _private_key = None
     _public_key = None
 
@@ -21,22 +20,97 @@ class AElfTest(unittest.TestCase):
     def test_chain_api(self):
         chain_status = self.chain.get_chain_status()
         print('# get_chain_status', chain_status)
-        self.assertTrue(chain_status['BestChainHeight'] > 0)
-        chain_id = self.chain.get_chain_id()
-        print('# get_chain_id', chain_id)
+        self.assertEqual("AELF", chain_status['ChainId'])
+        self.assertTrue(len(chain_status['Branches']) > 0)
+        self.assertTrue(chain_status['LongestChainHeight'] > 0)
+        self.assertTrue(chain_status['LongestChainHash'] != '')
+        self.assertTrue(chain_status['GenesisContractAddress'] != '')
+        self.assertTrue(chain_status['GenesisBlockHash'] != '')
+        self.assertTrue(chain_status['LastIrreversibleBlockHeight'] > 0)
+        self.assertTrue(chain_status['LastIrreversibleBlockHash'] != '')
+        self.assertTrue(chain_status['BestChainHeight'] != '')
+        self.assertTrue(chain_status['BestChainHash'] != '')
 
-    def test_block_api(self):
+        longest_chain_block = self.chain.get_block(chain_status['LongestChainHash'])
+        self.assertEqual(longest_chain_block['Header']['Height'], chain_status['LongestChainHeight'])
+
+        best_chain_block = self.chain.get_block(chain_status['BestChainHash'])
+        self.assertEqual(best_chain_block['Header']['Height'], chain_status['BestChainHeight'])
+
+        last_irreversible_block = self.chain.get_block(chain_status['LastIrreversibleBlockHash'])
+        self.assertEqual(last_irreversible_block['Header']['Height'], chain_status['LastIrreversibleBlockHeight'])
+
+        genesis_block = self.chain.get_block(chain_status['GenesisBlockHash'])
+        self.assertEqual(genesis_block['Header']['Height'], 1)
+
+        genesis_contract_address = self.chain.get_genesis_contract_address_string()
+        self.assertEqual(genesis_contract_address, chain_status['GenesisContractAddress'])
+
+        chain_id = self.chain.get_chain_id()
+        self.assertEqual(9992731, chain_id)
+
+    def test_get_contract_file_descriptor_set_api(self):
+        genesis_contract_address = self.chain.get_genesis_contract_address_string()
+        file_descriptor_set = self.chain.get_contract_file_descriptor_set(genesis_contract_address)
+        ##print('# get_contract_file_descriptor_set', file_descriptor_set)
+        self.assertTrue(file_descriptor_set != '')
+
+    def test_get_block_api(self):
         block_height = self.chain.get_block_height()
         print('# get_block_height', block_height)
         self.assertTrue(block_height > 0)
 
-        block = self.chain.get_block_by_height(1, include_transactions=True)
-        print('# get_block_by_height', block)
-        self.assertTrue(block['Header']['Height'] == 1)
+        block_by_height = self.chain.get_block_by_height(block_height)
+        block_by_hash = self.chain.get_block(block_by_height['BlockHash'])
 
-        block2 = self.chain.get_block(block['BlockHash'], include_transactions=False)
-        print('# get_block', block2)
-        self.assertTrue(block['Header']['Height'] == 1)
+        self.assertEqual(block_by_height, block_by_hash)
+        self.assertEqual(block_by_height['Header']['Height'], block_height)
+        self.verify_block(block_by_height, False)
+
+    def test_get_block_include_transactions_api(self):
+        block_height = self.chain.get_block_height()
+        print('# get_block_height', block_height)
+        self.assertTrue(block_height > 0)
+
+        block_by_height = self.chain.get_block_by_height(block_height, True)
+        block_by_hash = self.chain.get_block(block_by_height['BlockHash'], True)
+
+        self.assertEqual(block_by_height, block_by_hash)
+        self.assertEqual(block_by_height['Header']['Height'], block_height)
+        self.verify_block(block_by_height, True)
+
+    def verify_block(self, block, include_transactions):
+        self.assertTrue(block['Header']['PreviousBlockHash'] != '')
+        self.assertTrue(block['Header']['MerkleTreeRootOfTransactions'] != '')
+        self.assertTrue(block['Header']['MerkleTreeRootOfWorldState'] != '')
+        self.assertTrue(block['Header']['MerkleTreeRootOfTransactionState'] != '')
+        self.assertTrue(block['Header']['Extra'] != '')
+        self.assertEqual(block['Header']['ChainId'], 'AELF')
+        self.assertTrue(block['Header']['Bloom'] != '')
+        self.assertTrue(block['Header']['SignerPubkey'] != '')
+        self.assertTrue(block['Header']['Time'] != '')
+
+        self.assertTrue(block['Body']['TransactionsCount'] > 0)
+        if include_transactions:
+            self.assertEqual(len(block['Body']['Transactions']), block['Body']['TransactionsCount'])
+            for id in block['Body']['Transactions']:
+                self.assertTrue(id != '')
+        else:
+            self.assertEqual(len(block['Body']['Transactions']), 0)
+
+        previous_block = self.chain.get_block(block['Header']['PreviousBlockHash'])
+        self.assertEqual(previous_block['BlockHash'], block['Header']['PreviousBlockHash'])
+        self.assertEqual(previous_block['Header']['Height'], block['Header']['Height']-1)
+    
+    def test_key_pair(self):
+        keypair = KeyPair()
+        print('# keypair', keypair.private_key.to_hex())
+        print('# keypair', keypair.public_key.hex())
+        self.assertTrue(keypair.private_key.to_hex() != '')
+        self.assertTrue(keypair.public_key.hex() != '')
+        address = self.chain.get_address_string_from_public_key(keypair.public_key)
+        print('# address', address)
+        self.assertTrue(address != '')
 
     def test_transaction_result_api(self):
         block = self.chain.get_block_by_height(1, include_transactions=True)

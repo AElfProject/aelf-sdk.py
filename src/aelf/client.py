@@ -66,6 +66,14 @@ class AElf(object):
         """
         return requests.get('%s/blockchain/transactionPoolStatus' % self._url, headers=self._get_request_header).json()
 
+    def get_contract_file_descriptor_set(self, contract_address):
+        """
+        Get contract file descriptor set
+        :return: contract file descriptor set
+        """
+        api = '%s/blockChain/contractFileDescriptorSet?address=%s' % (self._url, contract_address)
+        return requests.get(api, headers=self._get_request_header).json()
+
     def create_raw_transaction(self, transaction):
         """
         Create raw transaction
