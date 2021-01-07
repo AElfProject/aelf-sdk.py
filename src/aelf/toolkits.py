@@ -8,8 +8,8 @@ from aelf.types_pb2 import MinerList, StringInput, CandidateVote, PublicKeysList
 
 class AElfToolkit(object):
 
-    def __init__(self, url, private_key, version=None):
-        self._private_key = private_key
+    def __init__(self, url, keypair, version=None):
+        self._keypair = keypair
         self.aelf = AElf(url, version)
 
     def deploy_contract(self, deploy_contract_bytes):
@@ -18,15 +18,7 @@ class AElfToolkit(object):
         :param deploy_contract_bytes: contract bytes
         :return: deployed address
         """
-        contract_deployment_input = ContractDeploymentInput()
-        contract_deployment_input.code = deploy_contract_bytes
-        contract_deployment_input.category = 3
-
-        genesis_contract_address = self.aelf.get_genesis_contract_address_string()
-        transaction = self.aelf.create_transaction(genesis_contract_address, 'DeploySmartContract',
-                                                   contract_deployment_input.SerializeToString())
-        transaction = self.aelf.sign_transaction(self._private_key, transaction)
-        return self.aelf.send_transaction(transaction)
+        raise NotImplementedError()
 
     def update_contract(self, contract_address, update_contract_bytes):
         """
@@ -35,14 +27,7 @@ class AElfToolkit(object):
         :param update_contract_bytes: contract bytes
         :return: updated address
         """
-        contract_update_input = ContractUpdateInput()
-        contract_update_input.code = update_contract_bytes
-        contract_update_input.category = 3
-        genesis_contract_address = self.aelf.get_genesis_contract_address_string()
-        transaction = self._create_and_sign_transaction(genesis_contract_address, 'DeploySmartContract',
-                                                        contract_update_input)
-        transaction = self.aelf.sign_transaction(self._private_key, transaction)
-        return self.aelf.send_transaction(transaction)
+        raise NotImplementedError()
 
     def transfer(self, to_address_string, symbol, amount, memo):
         """
@@ -60,7 +45,7 @@ class AElfToolkit(object):
         transfer_input.memo = memo
         multi_token_contract_address = self.aelf.get_system_contract_address('AElf.ContractNames.Token')
         transaction = self._create_and_sign_transaction(multi_token_contract_address, 'Transfer', transfer_input)
-        return self.aelf.execute_transaction(transaction)
+        return self.aelf.send_transaction(transaction.SerializePartialToString().hex())
 
     def cross_chain_transfer(self, to_address_string, symbol, amount, memo, to_chain_id):
         """
@@ -72,17 +57,7 @@ class AElfToolkit(object):
         :param to_chain_id: to chain id
         :return:
         """
-        cross_chain_transfer_input = CrossChainTransferInput()
-        cross_chain_transfer_input.to.value = base58.b58decode_check(to_address_string)
-        cross_chain_transfer_input.symbol = symbol
-        cross_chain_transfer_input.amount = amount
-        cross_chain_transfer_input.memo = memo
-        cross_chain_transfer_input.to_chain_id = to_chain_id
-        cross_chain_transfer_input.issue_chain_id = self.aelf.get_chain_id()
-        multi_token_contract_address = self.aelf.get_system_contract_address('AElf.ContractNames.Token')
-        transaction = self._create_and_sign_transaction(multi_token_contract_address, 'CrossChainTransfer',
-                                                        cross_chain_transfer_input)
-        return self.aelf.execute_transaction(transaction)
+        raise NotImplementedError()
 
     def cross_chain_receive(self, from_chain_id, parent_chain_height, transfer_transaction_bytes, merkle_path):
         cross_chain_receive_token_input = CrossChainReceiveTokenInput()
@@ -106,7 +81,7 @@ class AElfToolkit(object):
         balance = self.aelf.execute_transaction(transaction)
         get_balance_output = GetBalanceOutput()
         get_balance_output.ParseFromString(bytes.fromhex(balance.decode()))
-        return get_balance_output.balance
+        return get_balance_output
 
     def buy_resource(self):
         raise NotImplementedError()
@@ -192,7 +167,7 @@ class AElfToolkit(object):
             transaction = self.aelf.create_transaction(to_address, method_name, params.SerializeToString())
         else:
             transaction = self.aelf.create_transaction(to_address, method_name)
-        return self.aelf.sign_transaction(self._private_key, transaction)
+        return self.aelf.sign_transaction(self._keypair.private_key, transaction)
 
     def _build_node_info(self, public_key):
         address = self.aelf.get_address_string_from_public_key(public_key)

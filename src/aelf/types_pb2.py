@@ -12,6 +12,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+from google.protobuf import descriptor_pb2 as google_dot_protobuf_dot_descriptor__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,11 +20,59 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0btypes.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"#\n\x0bStringInput\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\"\x1c\n\tMinerList\x12\x0f\n\x07pubkeys\x18\x01 \x03(\x0c\"\x15\n\x04Hash\x12\r\n\x05value\x18\x01 \x01(\x0c\"\x18\n\x07\x41\x64\x64ress\x12\r\n\x05value\x18\x01 \x01(\x0c\"\xb8\x01\n\x0bTransaction\x12\x1e\n\x0c\x66rom_address\x18\x01 \x01(\x0b\x32\x08.Address\x12\x1c\n\nto_address\x18\x02 \x01(\x0b\x32\x08.Address\x12\x18\n\x10ref_block_number\x18\x03 \x01(\x03\x12\x18\n\x10ref_block_prefix\x18\x04 \x01(\x0c\x12\x13\n\x0bmethod_name\x18\x05 \x01(\t\x12\x0e\n\x06params\x18\x06 \x01(\x0c\x12\x12\n\tsignature\x18\x90N \x01(\x0c\"\xf4\x02\n\x14\x45lectionVotingRecord\x12\x17\n\x05voter\x18\x01 \x01(\x0b\x32\x08.Address\x12\x11\n\tcandidate\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x13\n\x0bterm_number\x18\x04 \x01(\x03\x12\x16\n\x07vote_id\x18\x05 \x01(\x0b\x32\x05.Hash\x12\x11\n\tlock_time\x18\x06 \x01(\x03\x12\x34\n\x10unlock_timestamp\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x36\n\x12withdraw_timestamp\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0evote_timestamp\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0cis_withdrawn\x18\n \x01(\x08\x12\x0e\n\x06weight\x18\x0b \x01(\x03\x12\x18\n\x10is_change_target\x18\x0c \x01(\x08\"\xa3\x02\n\x0b\x45lectorVote\x12\'\n\x18\x61\x63tive_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12*\n\x1bwithdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12!\n\x19\x61\x63tive_voted_votes_amount\x18\x03 \x01(\x03\x12\x1e\n\x16\x61ll_voted_votes_amount\x18\x04 \x01(\x03\x12\x34\n\x15\x61\x63tive_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x36\n\x17withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x0e\n\x06pubkey\x18\x07 \x01(\x0c\"\xdb\x02\n\rCandidateVote\x12\x30\n!obtained_active_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12\x33\n$obtained_withdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12*\n\"obtained_active_voted_votes_amount\x18\x03 \x01(\x03\x12\'\n\x1f\x61ll_obtained_voted_votes_amount\x18\x04 \x01(\x03\x12=\n\x1eobtained_active_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12?\n obtained_withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x0e\n\x06pubkey\x18\x07 \x01(\x0c\"\x1f\n\x0ePublicKeysList\x12\r\n\x05value\x18\x01 \x03(\x0c\"9\n\x17\x43ontractDeploymentInput\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\x11\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\">\n\x13\x43ontractUpdateInput\x12\x19\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\"\x8a\x01\n\x17\x43rossChainTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x13\n\x0bto_chain_id\x18\x05 \x01(\x05\x12\x16\n\x0eissue_chain_id\x18\x06 \x01(\x05\"8\n\nMerklePath\x12*\n\x11merkle_path_nodes\x18\x01 \x03(\x0b\x32\x0f.MerklePathNode\"A\n\x0eMerklePathNode\x12\x13\n\x04hash\x18\x01 \x01(\x0b\x32\x05.Hash\x12\x1a\n\x12is_left_child_node\x18\x02 \x01(\x08\"\x97\x01\n\x1b\x43rossChainReceiveTokenInput\x12\x15\n\rfrom_chain_id\x18\x01 \x01(\x05\x12\x1b\n\x13parent_chain_height\x18\x02 \x01(\x03\x12\"\n\x1atransfer_transaction_bytes\x18\x03 \x01(\x0c\x12 \n\x0bmerkle_path\x18\x04 \x01(\x0b\x32\x0b.MerklePath\"#\n\x11GetTokenInfoInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\":\n\x0fGetBalanceInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\"L\n\x10GetBalanceOutput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x03\"P\n\nIssueInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x03\x12\x0c\n\x04memo\x18\x03 \x01(\t\x12\x14\n\x02to\x18\x04 \x01(\x0b\x32\x08.Address\"S\n\rTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x0c\n\x04memo\x18\x04 \x01(\tb\x06proto3'
+  serialized_pb=b'\n\x0btypes.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a google/protobuf/descriptor.proto\"#\n\x0bStringInput\x12\x14\n\x0cstring_value\x18\x01 \x01(\t\"\x1c\n\tMinerList\x12\x0f\n\x07pubkeys\x18\x01 \x03(\x0c\"\x15\n\x04Hash\x12\r\n\x05value\x18\x01 \x01(\x0c\"\x18\n\x07\x41\x64\x64ress\x12\r\n\x05value\x18\x01 \x01(\x0c\"\xb8\x01\n\x0bTransaction\x12\x1e\n\x0c\x66rom_address\x18\x01 \x01(\x0b\x32\x08.Address\x12\x1c\n\nto_address\x18\x02 \x01(\x0b\x32\x08.Address\x12\x18\n\x10ref_block_number\x18\x03 \x01(\x03\x12\x18\n\x10ref_block_prefix\x18\x04 \x01(\x0c\x12\x13\n\x0bmethod_name\x18\x05 \x01(\t\x12\x0e\n\x06params\x18\x06 \x01(\x0c\x12\x12\n\tsignature\x18\x90N \x01(\x0c\"\xf4\x02\n\x14\x45lectionVotingRecord\x12\x17\n\x05voter\x18\x01 \x01(\x0b\x32\x08.Address\x12\x11\n\tcandidate\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x13\n\x0bterm_number\x18\x04 \x01(\x03\x12\x16\n\x07vote_id\x18\x05 \x01(\x0b\x32\x05.Hash\x12\x11\n\tlock_time\x18\x06 \x01(\x03\x12\x34\n\x10unlock_timestamp\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x36\n\x12withdraw_timestamp\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0evote_timestamp\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0cis_withdrawn\x18\n \x01(\x08\x12\x0e\n\x06weight\x18\x0b \x01(\x03\x12\x18\n\x10is_change_target\x18\x0c \x01(\x08\"\xa3\x02\n\x0b\x45lectorVote\x12\'\n\x18\x61\x63tive_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12*\n\x1bwithdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12!\n\x19\x61\x63tive_voted_votes_amount\x18\x03 \x01(\x03\x12\x1e\n\x16\x61ll_voted_votes_amount\x18\x04 \x01(\x03\x12\x34\n\x15\x61\x63tive_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x36\n\x17withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x0e\n\x06pubkey\x18\x07 \x01(\x0c\"\xdb\x02\n\rCandidateVote\x12\x30\n!obtained_active_voting_record_ids\x18\x01 \x03(\x0b\x32\x05.Hash\x12\x33\n$obtained_withdrawn_voting_record_ids\x18\x02 \x03(\x0b\x32\x05.Hash\x12*\n\"obtained_active_voted_votes_amount\x18\x03 \x01(\x03\x12\'\n\x1f\x61ll_obtained_voted_votes_amount\x18\x04 \x01(\x03\x12=\n\x1eobtained_active_voting_records\x18\x05 \x03(\x0b\x32\x15.ElectionVotingRecord\x12?\n obtained_withdrawn_votes_records\x18\x06 \x03(\x0b\x32\x15.ElectionVotingRecord\x12\x0e\n\x06pubkey\x18\x07 \x01(\x0c\"\x1f\n\x0ePublicKeysList\x12\r\n\x05value\x18\x01 \x03(\x0c\"9\n\x17\x43ontractDeploymentInput\x12\x10\n\x08\x63\x61tegory\x18\x01 \x01(\x11\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\">\n\x13\x43ontractUpdateInput\x12\x19\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0c\n\x04\x63ode\x18\x02 \x01(\x0c\"\x8a\x01\n\x17\x43rossChainTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x0c\n\x04memo\x18\x04 \x01(\t\x12\x13\n\x0bto_chain_id\x18\x05 \x01(\x05\x12\x16\n\x0eissue_chain_id\x18\x06 \x01(\x05\"8\n\nMerklePath\x12*\n\x11merkle_path_nodes\x18\x01 \x03(\x0b\x32\x0f.MerklePathNode\"A\n\x0eMerklePathNode\x12\x13\n\x04hash\x18\x01 \x01(\x0b\x32\x05.Hash\x12\x1a\n\x12is_left_child_node\x18\x02 \x01(\x08\"\x97\x01\n\x1b\x43rossChainReceiveTokenInput\x12\x15\n\rfrom_chain_id\x18\x01 \x01(\x05\x12\x1b\n\x13parent_chain_height\x18\x02 \x01(\x03\x12\"\n\x1atransfer_transaction_bytes\x18\x03 \x01(\x0c\x12 \n\x0bmerkle_path\x18\x04 \x01(\x0b\x32\x0b.MerklePath\"#\n\x11GetTokenInfoInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\":\n\x0fGetBalanceInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\"L\n\x10GetBalanceOutput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x17\n\x05owner\x18\x02 \x01(\x0b\x32\x08.Address\x12\x0f\n\x07\x62\x61lance\x18\x03 \x01(\x03\"P\n\nIssueInput\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x03\x12\x0c\n\x04memo\x18\x03 \x01(\t\x12\x14\n\x02to\x18\x04 \x01(\x0b\x32\x08.Address\"S\n\rTransferInput\x12\x14\n\x02to\x18\x01 \x01(\x0b\x32\x08.Address\x12\x0e\n\x06symbol\x18\x02 \x01(\t\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x03\x12\x0c\n\x04memo\x18\x04 \x01(\t\"\x84\x01\n\x0bTransferred\x12\x1d\n\x04\x66rom\x18\x01 \x01(\x0b\x32\x08.AddressB\x05\x88\x8f\xf5\x01\x01\x12\x1b\n\x02to\x18\x02 \x01(\x0b\x32\x08.AddressB\x05\x88\x8f\xf5\x01\x01\x12\x15\n\x06symbol\x18\x03 \x01(\tB\x05\x88\x8f\xf5\x01\x01\x12\x0e\n\x06\x61mount\x18\x04 \x01(\x03\x12\x0c\n\x04memo\x18\x05 \x01(\t:\x04\xa0\xbb\x18\x01\"`\n\x19TransactionSizeFeeSymbols\x12\x43\n transaction_size_fee_symbol_list\x18\x01 \x03(\x0b\x32\x19.TransactionSizeFeeSymbol\"g\n\x18TransactionSizeFeeSymbol\x12\x14\n\x0ctoken_symbol\x18\x01 \x01(\t\x12\x19\n\x11\x62\x61se_token_weight\x18\x02 \x01(\x11\x12\x1a\n\x12\x61\x64\x64\x65\x64_token_weight\x18\x03 \x01(\x11\"=\n\x15TransactionFeeCharged\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12:\x04\xa0\xbb\x18\x01\"`\n\x14ResourceTokenCharged\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12\x12\"\n\x10\x63ontract_address\x18\x03 \x01(\x0b\x32\x08.Address:\x04\xa0\xbb\x18\x01\"^\n\x12ResourceTokenOwned\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0e\n\x06\x61mount\x18\x02 \x01(\x12\x12\"\n\x10\x63ontract_address\x18\x03 \x01(\x0b\x32\x08.Address:\x04\xa0\xbb\x18\x01:0\n\x08identity\x12\x1c.google.protobuf.FileOptions\x18\xa1\xc2\x1e \x01(\t:/\n\x04\x62\x61se\x12\x1f.google.protobuf.ServiceOptions\x18\xa9\xe9\x1e \x03(\t:7\n\x0c\x63sharp_state\x12\x1f.google.protobuf.ServiceOptions\x18\xc6\xe9\x1e \x01(\t:1\n\x07is_view\x12\x1e.google.protobuf.MethodOptions\x18\x91\xf1\x1e \x01(\x08:3\n\x08is_event\x12\x1f.google.protobuf.MessageOptions\x18\xb4\x87\x03 \x01(\x08:3\n\nis_indexed\x12\x1d.google.protobuf.FieldOptions\x18\xf1\xd1\x1e \x01(\x08\x62\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_descriptor__pb2.DESCRIPTOR,])
 
 
+IDENTITY_FIELD_NUMBER = 500001
+identity = _descriptor.FieldDescriptor(
+  name='identity', full_name='identity', index=0,
+  number=500001, type=9, cpp_type=9, label=1,
+  has_default_value=False, default_value=b"".decode('utf-8'),
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
+BASE_FIELD_NUMBER = 505001
+base = _descriptor.FieldDescriptor(
+  name='base', full_name='base', index=1,
+  number=505001, type=9, cpp_type=9, label=3,
+  has_default_value=False, default_value=[],
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
+CSHARP_STATE_FIELD_NUMBER = 505030
+csharp_state = _descriptor.FieldDescriptor(
+  name='csharp_state', full_name='csharp_state', index=2,
+  number=505030, type=9, cpp_type=9, label=1,
+  has_default_value=False, default_value=b"".decode('utf-8'),
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
+IS_VIEW_FIELD_NUMBER = 506001
+is_view = _descriptor.FieldDescriptor(
+  name='is_view', full_name='is_view', index=3,
+  number=506001, type=8, cpp_type=7, label=1,
+  has_default_value=False, default_value=False,
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
+IS_EVENT_FIELD_NUMBER = 50100
+is_event = _descriptor.FieldDescriptor(
+  name='is_event', full_name='is_event', index=4,
+  number=50100, type=8, cpp_type=7, label=1,
+  has_default_value=False, default_value=False,
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
+IS_INDEXED_FIELD_NUMBER = 502001
+is_indexed = _descriptor.FieldDescriptor(
+  name='is_indexed', full_name='is_indexed', index=5,
+  number=502001, type=8, cpp_type=7, label=1,
+  has_default_value=False, default_value=False,
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
 
 
 _STRINGINPUT = _descriptor.Descriptor(
@@ -52,8 +101,8 @@ _STRINGINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=48,
-  serialized_end=83,
+  serialized_start=82,
+  serialized_end=117,
 )
 
 
@@ -83,8 +132,8 @@ _MINERLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=85,
-  serialized_end=113,
+  serialized_start=119,
+  serialized_end=147,
 )
 
 
@@ -114,8 +163,8 @@ _HASH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=115,
-  serialized_end=136,
+  serialized_start=149,
+  serialized_end=170,
 )
 
 
@@ -145,8 +194,8 @@ _ADDRESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=138,
-  serialized_end=162,
+  serialized_start=172,
+  serialized_end=196,
 )
 
 
@@ -218,8 +267,8 @@ _TRANSACTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=165,
-  serialized_end=349,
+  serialized_start=199,
+  serialized_end=383,
 )
 
 
@@ -326,8 +375,8 @@ _ELECTIONVOTINGRECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=352,
-  serialized_end=724,
+  serialized_start=386,
+  serialized_end=758,
 )
 
 
@@ -399,8 +448,8 @@ _ELECTORVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=727,
-  serialized_end=1018,
+  serialized_start=761,
+  serialized_end=1052,
 )
 
 
@@ -472,8 +521,8 @@ _CANDIDATEVOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1021,
-  serialized_end=1368,
+  serialized_start=1055,
+  serialized_end=1402,
 )
 
 
@@ -503,8 +552,8 @@ _PUBLICKEYSLIST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1370,
-  serialized_end=1401,
+  serialized_start=1404,
+  serialized_end=1435,
 )
 
 
@@ -541,8 +590,8 @@ _CONTRACTDEPLOYMENTINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1403,
-  serialized_end=1460,
+  serialized_start=1437,
+  serialized_end=1494,
 )
 
 
@@ -579,8 +628,8 @@ _CONTRACTUPDATEINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1462,
-  serialized_end=1524,
+  serialized_start=1496,
+  serialized_end=1558,
 )
 
 
@@ -645,8 +694,8 @@ _CROSSCHAINTRANSFERINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1527,
-  serialized_end=1665,
+  serialized_start=1561,
+  serialized_end=1699,
 )
 
 
@@ -676,8 +725,8 @@ _MERKLEPATH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1667,
-  serialized_end=1723,
+  serialized_start=1701,
+  serialized_end=1757,
 )
 
 
@@ -714,8 +763,8 @@ _MERKLEPATHNODE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1725,
-  serialized_end=1790,
+  serialized_start=1759,
+  serialized_end=1824,
 )
 
 
@@ -766,8 +815,8 @@ _CROSSCHAINRECEIVETOKENINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1793,
-  serialized_end=1944,
+  serialized_start=1827,
+  serialized_end=1978,
 )
 
 
@@ -797,8 +846,8 @@ _GETTOKENINFOINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1946,
-  serialized_end=1981,
+  serialized_start=1980,
+  serialized_end=2015,
 )
 
 
@@ -835,8 +884,8 @@ _GETBALANCEINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1983,
-  serialized_end=2041,
+  serialized_start=2017,
+  serialized_end=2075,
 )
 
 
@@ -880,8 +929,8 @@ _GETBALANCEOUTPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2043,
-  serialized_end=2119,
+  serialized_start=2077,
+  serialized_end=2153,
 )
 
 
@@ -932,8 +981,8 @@ _ISSUEINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2121,
-  serialized_end=2201,
+  serialized_start=2155,
+  serialized_end=2235,
 )
 
 
@@ -984,8 +1033,271 @@ _TRANSFERINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2203,
-  serialized_end=2286,
+  serialized_start=2237,
+  serialized_end=2320,
+)
+
+
+_TRANSFERRED = _descriptor.Descriptor(
+  name='Transferred',
+  full_name='Transferred',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='from', full_name='Transferred.from', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\210\217\365\001\001', file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='to', full_name='Transferred.to', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\210\217\365\001\001', file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='Transferred.symbol', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=b'\210\217\365\001\001', file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='Transferred.amount', index=3,
+      number=4, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='memo', full_name='Transferred.memo', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'\240\273\030\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2323,
+  serialized_end=2455,
+)
+
+
+_TRANSACTIONSIZEFEESYMBOLS = _descriptor.Descriptor(
+  name='TransactionSizeFeeSymbols',
+  full_name='TransactionSizeFeeSymbols',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='transaction_size_fee_symbol_list', full_name='TransactionSizeFeeSymbols.transaction_size_fee_symbol_list', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2457,
+  serialized_end=2553,
+)
+
+
+_TRANSACTIONSIZEFEESYMBOL = _descriptor.Descriptor(
+  name='TransactionSizeFeeSymbol',
+  full_name='TransactionSizeFeeSymbol',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='token_symbol', full_name='TransactionSizeFeeSymbol.token_symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='base_token_weight', full_name='TransactionSizeFeeSymbol.base_token_weight', index=1,
+      number=2, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='added_token_weight', full_name='TransactionSizeFeeSymbol.added_token_weight', index=2,
+      number=3, type=17, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2555,
+  serialized_end=2658,
+)
+
+
+_TRANSACTIONFEECHARGED = _descriptor.Descriptor(
+  name='TransactionFeeCharged',
+  full_name='TransactionFeeCharged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='TransactionFeeCharged.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='TransactionFeeCharged.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'\240\273\030\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2660,
+  serialized_end=2721,
+)
+
+
+_RESOURCETOKENCHARGED = _descriptor.Descriptor(
+  name='ResourceTokenCharged',
+  full_name='ResourceTokenCharged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='ResourceTokenCharged.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='ResourceTokenCharged.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contract_address', full_name='ResourceTokenCharged.contract_address', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'\240\273\030\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2723,
+  serialized_end=2819,
+)
+
+
+_RESOURCETOKENOWNED = _descriptor.Descriptor(
+  name='ResourceTokenOwned',
+  full_name='ResourceTokenOwned',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='ResourceTokenOwned.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='ResourceTokenOwned.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contract_address', full_name='ResourceTokenOwned.contract_address', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'\240\273\030\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2821,
+  serialized_end=2915,
 )
 
 _TRANSACTION.fields_by_name['from_address'].message_type = _ADDRESS
@@ -1012,6 +1324,11 @@ _GETBALANCEINPUT.fields_by_name['owner'].message_type = _ADDRESS
 _GETBALANCEOUTPUT.fields_by_name['owner'].message_type = _ADDRESS
 _ISSUEINPUT.fields_by_name['to'].message_type = _ADDRESS
 _TRANSFERINPUT.fields_by_name['to'].message_type = _ADDRESS
+_TRANSFERRED.fields_by_name['from'].message_type = _ADDRESS
+_TRANSFERRED.fields_by_name['to'].message_type = _ADDRESS
+_TRANSACTIONSIZEFEESYMBOLS.fields_by_name['transaction_size_fee_symbol_list'].message_type = _TRANSACTIONSIZEFEESYMBOL
+_RESOURCETOKENCHARGED.fields_by_name['contract_address'].message_type = _ADDRESS
+_RESOURCETOKENOWNED.fields_by_name['contract_address'].message_type = _ADDRESS
 DESCRIPTOR.message_types_by_name['StringInput'] = _STRINGINPUT
 DESCRIPTOR.message_types_by_name['MinerList'] = _MINERLIST
 DESCRIPTOR.message_types_by_name['Hash'] = _HASH
@@ -1032,6 +1349,18 @@ DESCRIPTOR.message_types_by_name['GetBalanceInput'] = _GETBALANCEINPUT
 DESCRIPTOR.message_types_by_name['GetBalanceOutput'] = _GETBALANCEOUTPUT
 DESCRIPTOR.message_types_by_name['IssueInput'] = _ISSUEINPUT
 DESCRIPTOR.message_types_by_name['TransferInput'] = _TRANSFERINPUT
+DESCRIPTOR.message_types_by_name['Transferred'] = _TRANSFERRED
+DESCRIPTOR.message_types_by_name['TransactionSizeFeeSymbols'] = _TRANSACTIONSIZEFEESYMBOLS
+DESCRIPTOR.message_types_by_name['TransactionSizeFeeSymbol'] = _TRANSACTIONSIZEFEESYMBOL
+DESCRIPTOR.message_types_by_name['TransactionFeeCharged'] = _TRANSACTIONFEECHARGED
+DESCRIPTOR.message_types_by_name['ResourceTokenCharged'] = _RESOURCETOKENCHARGED
+DESCRIPTOR.message_types_by_name['ResourceTokenOwned'] = _RESOURCETOKENOWNED
+DESCRIPTOR.extensions_by_name['identity'] = identity
+DESCRIPTOR.extensions_by_name['base'] = base
+DESCRIPTOR.extensions_by_name['csharp_state'] = csharp_state
+DESCRIPTOR.extensions_by_name['is_view'] = is_view
+DESCRIPTOR.extensions_by_name['is_event'] = is_event
+DESCRIPTOR.extensions_by_name['is_indexed'] = is_indexed
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StringInput = _reflection.GeneratedProtocolMessageType('StringInput', (_message.Message,), {
@@ -1174,5 +1503,60 @@ TransferInput = _reflection.GeneratedProtocolMessageType('TransferInput', (_mess
   })
 _sym_db.RegisterMessage(TransferInput)
 
+Transferred = _reflection.GeneratedProtocolMessageType('Transferred', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSFERRED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:Transferred)
+  })
+_sym_db.RegisterMessage(Transferred)
 
+TransactionSizeFeeSymbols = _reflection.GeneratedProtocolMessageType('TransactionSizeFeeSymbols', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSACTIONSIZEFEESYMBOLS,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:TransactionSizeFeeSymbols)
+  })
+_sym_db.RegisterMessage(TransactionSizeFeeSymbols)
+
+TransactionSizeFeeSymbol = _reflection.GeneratedProtocolMessageType('TransactionSizeFeeSymbol', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSACTIONSIZEFEESYMBOL,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:TransactionSizeFeeSymbol)
+  })
+_sym_db.RegisterMessage(TransactionSizeFeeSymbol)
+
+TransactionFeeCharged = _reflection.GeneratedProtocolMessageType('TransactionFeeCharged', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSACTIONFEECHARGED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:TransactionFeeCharged)
+  })
+_sym_db.RegisterMessage(TransactionFeeCharged)
+
+ResourceTokenCharged = _reflection.GeneratedProtocolMessageType('ResourceTokenCharged', (_message.Message,), {
+  'DESCRIPTOR' : _RESOURCETOKENCHARGED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:ResourceTokenCharged)
+  })
+_sym_db.RegisterMessage(ResourceTokenCharged)
+
+ResourceTokenOwned = _reflection.GeneratedProtocolMessageType('ResourceTokenOwned', (_message.Message,), {
+  'DESCRIPTOR' : _RESOURCETOKENOWNED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:ResourceTokenOwned)
+  })
+_sym_db.RegisterMessage(ResourceTokenOwned)
+
+google_dot_protobuf_dot_descriptor__pb2.FileOptions.RegisterExtension(identity)
+google_dot_protobuf_dot_descriptor__pb2.ServiceOptions.RegisterExtension(base)
+google_dot_protobuf_dot_descriptor__pb2.ServiceOptions.RegisterExtension(csharp_state)
+google_dot_protobuf_dot_descriptor__pb2.MethodOptions.RegisterExtension(is_view)
+google_dot_protobuf_dot_descriptor__pb2.MessageOptions.RegisterExtension(is_event)
+google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(is_indexed)
+
+_TRANSFERRED.fields_by_name['from']._options = None
+_TRANSFERRED.fields_by_name['to']._options = None
+_TRANSFERRED.fields_by_name['symbol']._options = None
+_TRANSFERRED._options = None
+_TRANSACTIONFEECHARGED._options = None
+_RESOURCETOKENCHARGED._options = None
+_RESOURCETOKENOWNED._options = None
 # @@protoc_insertion_point(module_scope)

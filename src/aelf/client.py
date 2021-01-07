@@ -120,7 +120,7 @@ class AElf(object):
         :param transactions: transactions (join by ',')
         :return: the list of transaction ids
         """
-        return requests.post('%s/blockchain/sendTransaction' % self._url,
+        return requests.post('%s/blockchain/sendTransactions' % self._url,
                              json={'RawTransactions': transactions}, headers=self._post_request_header).json()
 
     def execute_transaction(self, transaction):
@@ -144,7 +144,7 @@ class AElf(object):
         :return: executed result
         """
         return requests.post('%s/blockchain/executeRawTransaction' % self._url,
-                             json=raw_transaction, headers=self._post_request_header).content
+                             json=raw_transaction, headers=self._post_request_header).json()
 
     def get_transaction_result(self, transaction_id):
         """
@@ -155,13 +155,13 @@ class AElf(object):
         api = '%s/blockchain/transactionResult?transactionId=%s' % (self._url, transaction_id)
         return requests.get(api, headers=self._get_request_header).json()
 
-    def get_transaction_results(self, block_hash):
+    def get_transaction_results(self, block_hash, offset, limit):
         """
         Get transaction results
         :param block_hash: block hash
         :return: transaction results
         """
-        api = '%s/blockchain/transactionResults?blockHash=%s' % (self._url, block_hash)
+        api = '%s/blockchain/transactionResults?blockHash=%s&offset=%s&limit=%s' % (self._url, block_hash, offset, limit)
         return requests.get(api, headers=self._get_request_header).json()
 
     def get_peers(self):

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/descriptor.proto";
 
 message StringInput {
     string string_value = 1;
@@ -184,4 +185,71 @@ message TransferInput {
     int64 amount = 3;
     // The memo.
     string memo = 4;
+}
+
+message Transferred {
+    option (is_event) = true;
+    // The source address of the transferred token.
+    Address from = 1 [(is_indexed) = true];
+    // The destination address of the transferred token.
+    Address to = 2 [(is_indexed) = true];
+    // The symbol of the transferred token.
+    string symbol = 3 [(is_indexed) = true];
+    // The amount of the transferred token.
+    int64 amount = 4;
+    // The memo.
+    string memo = 5;
+}
+
+message TransactionSizeFeeSymbols
+{
+    repeated TransactionSizeFeeSymbol transaction_size_fee_symbol_list = 1;
+}
+
+message TransactionSizeFeeSymbol
+{
+    string token_symbol = 1;
+    sint32 base_token_weight = 2;
+    sint32 added_token_weight = 3;
+}
+
+message TransactionFeeCharged {
+    option (is_event) = true;
+    string symbol = 1;
+    sint64 amount = 2;
+}
+
+message ResourceTokenCharged {
+    option (is_event) = true;
+    string symbol = 1;
+    sint64 amount = 2;
+    Address contract_address = 3;
+}
+
+message ResourceTokenOwned {
+    option (is_event) = true;
+    string symbol = 1;
+    sint64 amount = 2;
+    Address contract_address = 3;
+}
+
+extend google.protobuf.FileOptions {
+    string identity = 500001;
+}
+
+extend google.protobuf.ServiceOptions {
+    repeated string base = 505001;
+    string csharp_state = 505030;
+}
+
+extend google.protobuf.MethodOptions {
+    bool is_view = 506001;
+}
+
+extend google.protobuf.MessageOptions {
+    bool is_event = 50100;
+}
+
+extend google.protobuf.FieldOptions {
+    bool is_indexed = 502001;
 }
