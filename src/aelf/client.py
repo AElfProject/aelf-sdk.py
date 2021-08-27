@@ -1,6 +1,7 @@
 import hashlib
 
 import base58
+import base64
 import requests
 from coincurve import PrivateKey
 from google.protobuf.wrappers_pb2 import StringValue
@@ -162,22 +163,30 @@ class AElf(object):
         """
         return requests.get('%s/net/peers' % self._url, headers=self._get_request_header).json()
 
-    def add_peer(self, peer_address):
+    def add_peer(self, peer_address, user_name, passward):
         """
         Add peer
         :param peer_address: peer address
+        :param user_name: user name
+        :param passward: passward
         :return: True/False
         """
         json_data = {'Address': peer_address}
+        self._post_request_header['Authentication'] = "Basic " + base64.b64encode(
+            "({0}:{1})".format(user_name, passward))
         return requests.post('%s/net/peer' % self._url, json=json_data, headers=self._post_request_header).json()
 
-    def remove_peer(self, address):
+    def remove_peer(self, address, user_name, passward):
         """
         Remove peer
         :param address: peer address
+        :param user_name: user name
+        :param passward: passward
         :return: True/False
         """
         api = '%s/net/peer?address=%s' % (self._url, address)
+        self._get_request_header['Authentication'] = "Basic " + base64.b64encode(
+            "({0}:{1})".format(user_name, passward))
         status_code = requests.delete(api, headers=self._get_request_header).status_code
         return status_code == 200
 
