@@ -1,6 +1,7 @@
 import hashlib
 
 import base58
+import base64
 import requests
 from coincurve import PrivateKey
 from google.protobuf.wrappers_pb2 import StringValue
@@ -13,11 +14,15 @@ class AElf(object):
     _post_request_header = None
     _url = None
     _version = None
+    _userName = None
+    _password = None
 
     _private_key = 'b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa'
 
-    def __init__(self, url='http://127.0.0.1:8000', version=None):
+    def __init__(self, url='http://127.0.0.1:8000', userName=None, password=None, version=None):
         self._url = '%s/api' % url
+        self._userName = userName
+        self._password = password
 
         version = '' if version is None else ';v=%s' % version
         self._post_request_header = {'Content-Type': 'application/json' + version}
@@ -169,6 +174,7 @@ class AElf(object):
         :return: True/False
         """
         json_data = {'Address': peer_address}
+        self._post_request_header['Authorization'] = "Basic " + base64.b64encode("{0}:{1}".format(self._userName, self._password).encode()).decode()
         return requests.post('%s/net/peer' % self._url, json=json_data, headers=self._post_request_header).json()
 
     def remove_peer(self, address):
@@ -178,6 +184,7 @@ class AElf(object):
         :return: True/False
         """
         api = '%s/net/peer?address=%s' % (self._url, address)
+        self._get_request_header['Authorization'] = "Basic " + base64.b64encode("{0}:{1}".format(self._userName, self._password).encode()).decode()
         status_code = requests.delete(api, headers=self._get_request_header).status_code
         return status_code == 200
 
