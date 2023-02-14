@@ -12,7 +12,7 @@ class AElfTest(unittest.TestCase):
     _public_key = None
 
     def setUp(self):
-        private_key_string = 'b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa'
+        private_key_string = 'e3ca0260c3e50526fda2dd3ea8f42476d28d63dfced53e25954d04c2f0c88f17'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
         self.chain = AElf(self._url)
@@ -128,6 +128,22 @@ class AElfTest(unittest.TestCase):
         formatted_address = self.chain.get_formatted_address(address)
         print('formatted address', formatted_address)
         self.assertIsNotNone(formatted_address)
+
+    def test_calculate_transaction_fee_result_api(self):
+        transaction = {
+            "From": self.chain.get_address_string_from_public_key(self._public_key),
+            "To": self.chain.get_system_contract_address_string("AElf.ContractNames.Consensus"),
+            "RefBlockNumber": 0,
+            "RefBlockHash": "b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa",
+            "MethodName": "GetCurrentMinerList",
+            "Params": '{}'
+        }
+        raw_transaction = self.chain.create_raw_transaction(transaction)
+        calculate_transaction_fee_input = {
+            "RawTransaction" : raw_transaction['RawTransaction']
+        }
+        calculate_transaction_fee_output = self.chain.calculate_transaction_fee_result(calculate_transaction_fee_input)
+        print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
 
 if __name__ == '__main__':

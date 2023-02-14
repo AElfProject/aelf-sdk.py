@@ -174,7 +174,8 @@ class AElf(object):
         :return: True/False
         """
         json_data = {'Address': peer_address}
-        self._post_request_header['Authorization'] = "Basic " + base64.b64encode("{0}:{1}".format(self._userName, self._password).encode()).decode()
+        self._post_request_header['Authorization'] = "Basic " + base64.b64encode(
+            "{0}:{1}".format(self._userName, self._password).encode()).decode()
         return requests.post('%s/net/peer' % self._url, json=json_data, headers=self._post_request_header).json()
 
     def remove_peer(self, address):
@@ -184,7 +185,8 @@ class AElf(object):
         :return: True/False
         """
         api = '%s/net/peer?address=%s' % (self._url, address)
-        self._get_request_header['Authorization'] = "Basic " + base64.b64encode("{0}:{1}".format(self._userName, self._password).encode()).decode()
+        self._get_request_header['Authorization'] = "Basic " + base64.b64encode(
+            "{0}:{1}".format(self._userName, self._password).encode()).decode()
         status_code = requests.delete(api, headers=self._get_request_header).status_code
         return status_code == 200
 
@@ -334,6 +336,18 @@ class AElf(object):
 
         chain_status = self.get_chain_status()
         return '%s_%s_%s' % (symbol.value, address, chain_status['ChainId'])
+
+    def calculate_transaction_fee_result(self, transaction):
+        """
+        calculate_transaction_fee_result
+        :param transaction: the json format transaction
+            {
+              "RawTransaction": "string",
+            }
+        :return: the CalculateTransactionFeeOutput formatted
+        """
+        return requests.post('%s/blockChain/calculateTransactionFee' % self._url,
+                             json=transaction, headers=self._post_request_header).json()
 
     def is_connected(self):
         """
