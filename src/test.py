@@ -7,12 +7,12 @@ from aelf import AElf, AElfToolkit
 
 
 class AElfTest(unittest.TestCase):
-    _url = 'http://127.0.0.1:8001'
+    _url = 'http://127.0.0.1:8000'
     _private_key = None
     _public_key = None
 
     def setUp(self):
-        private_key_string = 'e3ca0260c3e50526fda2dd3ea8f42476d28d63dfced53e25954d04c2f0c88f17'
+        private_key_string = 'cd86ab6347d8e52bbbe8532141fc59ce596268143a308d1d40fedf385528b458'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
         self.chain = AElf(self._url)
@@ -140,9 +140,13 @@ class AElfTest(unittest.TestCase):
         }
         raw_transaction = self.chain.create_raw_transaction(transaction)
         calculate_transaction_fee_input = {
-            "RawTransaction" : raw_transaction['RawTransaction']
+            "RawTransaction": raw_transaction['RawTransaction']
         }
         calculate_transaction_fee_output = self.chain.calculate_transaction_fee_result(calculate_transaction_fee_input)
+        self.assertTrue(calculate_transaction_fee_output['Success'])
+        self.assertGreaterEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 12000000)
+        self.assertLessEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 14000000)
+
         print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
 

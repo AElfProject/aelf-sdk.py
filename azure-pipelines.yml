@@ -13,7 +13,7 @@ jobs:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK'
     inputs:
-      version: 3.1.101
+      version: '6.0.x'
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
@@ -32,15 +32,15 @@ jobs:
       ports:
       - 6379:6379
   pool:
-    vmImage: ubuntu-18.04
+    vmImage: ubuntu-lasted
   strategy:
     matrix:
       Python37:
         python.version: '3.7'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     inputs:
-      version: '3.1.101'
+      version: '6.0.x'
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
@@ -62,9 +62,9 @@ jobs:
       Python37:
         python.version: '3.7'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     inputs:
-      version: '3.1.101'
+      version: '6.0.x'
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
