@@ -20,7 +20,7 @@ jobs:
     displayName: 'Use Python $(python.version)'
   - script: |
       python -m pip install --upgrade pip
-      pip install coincurve base58 requests protobuf
+      pip install coincurve base58 requests protobuf==3.19.0
   - powershell: ./scripts/aelf-node/start-window.ps1
     displayName: 'Test'
 
@@ -49,7 +49,7 @@ jobs:
     displayName: 'Deploy a full node'
   - script: |
       python -m pip install --upgrade pip
-      pip install coincurve base58 requests protobuf
+      pip install coincurve base58 requests protobuf==3.19.0
   - script: cd src && python test.py
     displayName: 'pytest'    
 # All tasks on macOS
@@ -73,6 +73,6 @@ jobs:
     displayName: 'Deploy a full node'
   - script: |
       python -m pip install --upgrade pip
-      pip install coincurve base58 requests protobuf
+      pip install coincurve base58 requests protobuf==3.19.0
   - script: cd src && python test.py
     displayName: 'pytest'
