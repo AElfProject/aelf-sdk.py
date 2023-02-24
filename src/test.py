@@ -7,12 +7,12 @@ from aelf import AElf, AElfToolkit
 
 
 class AElfTest(unittest.TestCase):
-    _url = 'http://127.0.0.1:8000'
+    _url = 'http://127.0.0.1:8001'
     _private_key = None
     _public_key = None
 
     def setUp(self):
-        private_key_string = 'cd86ab6347d8e52bbbe8532141fc59ce596268143a308d1d40fedf385528b458'
+        private_key_string = 'b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
         self.chain = AElf(self._url)
