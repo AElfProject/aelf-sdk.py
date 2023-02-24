@@ -7,7 +7,7 @@ from aelf import AElf, AElfToolkit
 
 
 class AElfTest(unittest.TestCase):
-    _url = 'http://127.0.0.1:8000'
+    _url = 'http://127.0.0.1:8001'
     _private_key = None
     _public_key = None
 
