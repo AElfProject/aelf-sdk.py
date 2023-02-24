@@ -10,7 +10,7 @@ sudo mkdir -p aelf/aelf/keys
 sudo cp scripts/aelf-node/keys/*.json aelf/aelf/keys/
 sudo cp scripts/aelf-node/app* aelf/
 echo "start node"
-cd aelf && sudo dotnet AElf.Launcher.dll >/dev/null 2>&1 &
+cd aelf && sudo dotnet AElf.Launcher.dll
 sleep 30
 height=`curl -s http://$ip:8001/api/blockChain/blockHeight`
 echo "height is $height"
