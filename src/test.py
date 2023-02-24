@@ -12,7 +12,7 @@ class AElfTest(unittest.TestCase):
     _public_key = None
 
     def setUp(self):
-        private_key_string = 'b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa'
+        private_key_string = 'cd86ab6347d8e52bbbe8532141fc59ce596268143a308d1d40fedf385528b458'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
         self.chain = AElf(self._url)
