@@ -195,7 +195,8 @@ class AElf(object):
         Get network info
         :return: network info
         """
-        return requests.get('%s/net/networkInfo' % self._url, headers=self._get_request_header).json()
+        result = requests.get('%s/net/networkInfo' % self._url, headers=self._get_request_header).json()
+        return result
 
     def get_task_queue_status(self):
         """
@@ -337,7 +338,7 @@ class AElf(object):
         chain_status = self.get_chain_status()
         return '%s_%s_%s' % (symbol.value, address, chain_status['ChainId'])
 
-    def calculate_transaction_fee_result(self, transaction):
+    def calculate_transaction_fee(self, transaction):
         """
         calculate_transaction_fee_result
         :param transaction: the json format transaction

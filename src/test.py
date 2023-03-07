@@ -98,9 +98,11 @@ class AElfTest(unittest.TestCase):
         self.assertTrue(len(task_queue_status) > 0)
 
     def test_network_api(self):
-        print('# get_network_info', self.chain.get_network_info())
+        net_work_info = self.chain.get_network_info()
+        print('# get_network_info', net_work_info)
         print('# remove_peer')
         self.assertTrue(self.chain.remove_peer('127.0.0.1:6800'))
+        self.assertEqual(net_work_info['Version'], '1.2.3.0')
         print('# add_peer')
         self.assertFalse(self.chain.add_peer('127.0.0.1:6800'))
 
@@ -129,7 +131,7 @@ class AElfTest(unittest.TestCase):
         print('formatted address', formatted_address)
         self.assertIsNotNone(formatted_address)
 
-    def test_calculate_transaction_fee_result_api(self):
+    def test_calculate_transaction_fee_api(self):
         transaction = {
             "From": self.chain.get_address_string_from_public_key(self._public_key),
             "To": self.chain.get_system_contract_address_string("AElf.ContractNames.Consensus"),
@@ -142,7 +144,7 @@ class AElfTest(unittest.TestCase):
         calculate_transaction_fee_input = {
             "RawTransaction": raw_transaction['RawTransaction']
         }
-        calculate_transaction_fee_output = self.chain.calculate_transaction_fee_result(calculate_transaction_fee_input)
+        calculate_transaction_fee_output = self.chain.calculate_transaction_fee(calculate_transaction_fee_input)
         self.assertTrue(calculate_transaction_fee_output['Success'])
         self.assertGreaterEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 12000000)
         self.assertLessEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 14000000)
