@@ -988,6 +988,82 @@ _TRANSFERINPUT = _descriptor.Descriptor(
   serialized_end=2286,
 )
 
+
+_TRANSACTIONFEECHARGED = _descriptor.Descriptor(
+  name='TransactionFeeCharged',
+  full_name='TransactionFeeCharged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='TransactionFeeCharged.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='TransactionFeeCharged.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2258,
+  serialized_end=2313,
+)
+
+
+_RESOURCETOKENCHARGED = _descriptor.Descriptor(
+  name='ResourceTokenCharged',
+  full_name='ResourceTokenCharged',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='symbol', full_name='ResourceTokenCharged.symbol', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='amount', full_name='ResourceTokenCharged.amount', index=1,
+      number=2, type=18, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2315,
+  serialized_end=2369,
+)
+
 _TRANSACTION.fields_by_name['from_address'].message_type = _ADDRESS
 _TRANSACTION.fields_by_name['to_address'].message_type = _ADDRESS
 _ELECTIONVOTINGRECORD.fields_by_name['voter'].message_type = _ADDRESS
@@ -1032,6 +1108,8 @@ DESCRIPTOR.message_types_by_name['GetBalanceInput'] = _GETBALANCEINPUT
 DESCRIPTOR.message_types_by_name['GetBalanceOutput'] = _GETBALANCEOUTPUT
 DESCRIPTOR.message_types_by_name['IssueInput'] = _ISSUEINPUT
 DESCRIPTOR.message_types_by_name['TransferInput'] = _TRANSFERINPUT
+DESCRIPTOR.message_types_by_name['TransactionFeeCharged'] = _TRANSACTIONFEECHARGED
+DESCRIPTOR.message_types_by_name['ResourceTokenCharged'] = _RESOURCETOKENCHARGED
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StringInput = _reflection.GeneratedProtocolMessageType('StringInput', (_message.Message,), {
@@ -1173,6 +1251,20 @@ TransferInput = _reflection.GeneratedProtocolMessageType('TransferInput', (_mess
   # @@protoc_insertion_point(class_scope:TransferInput)
   })
 _sym_db.RegisterMessage(TransferInput)
+
+TransactionFeeCharged = _reflection.GeneratedProtocolMessageType('TransactionFeeCharged', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSACTIONFEECHARGED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:TransactionFeeCharged)
+  })
+_sym_db.RegisterMessage(TransactionFeeCharged)
+
+ResourceTokenCharged = _reflection.GeneratedProtocolMessageType('ResourceTokenCharged', (_message.Message,), {
+  'DESCRIPTOR' : _RESOURCETOKENCHARGED,
+  '__module__' : 'types_pb2'
+  # @@protoc_insertion_point(class_scope:ResourceTokenCharged)
+  })
+_sym_db.RegisterMessage(ResourceTokenCharged)
 
 
 # @@protoc_insertion_point(module_scope)

@@ -185,3 +185,13 @@ message TransferInput {
     // The memo.
     string memo = 4;
 }
+
+message TransactionFeeCharged {
+    string symbol = 1;
+    sint64 amount = 2;
+}
+
+message ResourceTokenCharged {
+    string symbol = 1;
+    sint64 amount = 2;
+}

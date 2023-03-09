@@ -1,3 +1,4 @@
+import base64
 import hashlib
 
 import base58
@@ -6,7 +7,7 @@ import requests
 from coincurve import PrivateKey
 from google.protobuf.wrappers_pb2 import StringValue
 
-from aelf.types_pb2 import Transaction, Hash, Address
+from aelf.types_pb2 import Transaction, Hash, Address, TransactionFeeCharged, ResourceTokenCharged
 
 
 class AElf(object):
@@ -160,6 +161,32 @@ class AElf(object):
         """
         api = '%s/blockchain/transactionResults?blockHash=%s' % (self._url, block_hash)
         return requests.get(api, headers=self._get_request_header).json()
+
+    def get_transaction_fees(self, logs):
+        """
+        Get transaction fees
+        :param logs: logs from transaction results
+        :return: transaction fees
+        """
+        transaction_fees = list()
+        for log in logs:
+            if log['Name'] == 'TransactionFeeCharged':
+                transaction_fee = TransactionFeeCharged()
+                transaction_fee.ParseFromString(base64.b64decode(log['NonIndexed']))
+                transaction_fees.append({
+                    'name': 'transaction_fee_charged',
+                    'symbol': transaction_fee.symbol,
+                    'amount': transaction_fee.amount
+                })
+            if log['Name'] == 'ResourceTokenCharged':
+                resource_token_fee = ResourceTokenCharged()
+                resource_token_fee.ParseFromString(base64.b64decode(log['NonIndexed']))
+                transaction_fees.append({
+                    'name': 'resource_token_charged',
+                    'symbol': resource_token_fee.symbol,
+                    'amount': resource_token_fee.amount
+                })
+        return transaction_fees
 
     def get_peers(self):
         """
