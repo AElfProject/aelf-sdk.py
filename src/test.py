@@ -12,10 +12,10 @@ class AElfTest(unittest.TestCase):
     _public_key = None
 
     def setUp(self):
-        private_key_string = 'b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa'
+        private_key_string = 'cd86ab6347d8e52bbbe8532141fc59ce596268143a308d1d40fedf385528b458'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
-        self.chain = AElf(self._url)
+        self.chain = AElf(self._url,"aelf","aelf")
         self.toolkit = AElfToolkit(self._url, self._private_key)
 
     def test_chain_api(self):
@@ -98,9 +98,11 @@ class AElfTest(unittest.TestCase):
         self.assertTrue(len(task_queue_status) > 0)
 
     def test_network_api(self):
-        print('# get_network_info', self.chain.get_network_info())
+        net_work_info = self.chain.get_network_info()
+        print('# get_network_info', net_work_info)
         print('# remove_peer')
         self.assertTrue(self.chain.remove_peer('127.0.0.1:6800'))
+        self.assertEqual(net_work_info['Version'], '1.2.3.0')
         print('# add_peer')
         self.assertFalse(self.chain.add_peer('127.0.0.1:6800'))
 
@@ -128,6 +130,26 @@ class AElfTest(unittest.TestCase):
         formatted_address = self.chain.get_formatted_address(address)
         print('formatted address', formatted_address)
         self.assertIsNotNone(formatted_address)
+
+    def test_calculate_transaction_fee_api(self):
+        transaction = {
+            "From": self.chain.get_address_string_from_public_key(self._public_key),
+            "To": self.chain.get_system_contract_address_string("AElf.ContractNames.Consensus"),
+            "RefBlockNumber": 0,
+            "RefBlockHash": "b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa",
+            "MethodName": "GetCurrentMinerList",
+            "Params": '{}'
+        }
+        raw_transaction = self.chain.create_raw_transaction(transaction)
+        calculate_transaction_fee_input = {
+            "RawTransaction": raw_transaction['RawTransaction']
+        }
+        calculate_transaction_fee_output = self.chain.calculate_transaction_fee(calculate_transaction_fee_input)
+        self.assertTrue(calculate_transaction_fee_output['Success'])
+        self.assertGreaterEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 12000000)
+        self.assertLessEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 14000000)
+
+        print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
 
 if __name__ == '__main__':
