@@ -2,6 +2,7 @@ import base64
 import hashlib
 
 import base58
+import base64
 import requests
 from coincurve import PrivateKey
 from google.protobuf.wrappers_pb2 import StringValue
@@ -14,11 +15,15 @@ class AElf(object):
     _post_request_header = None
     _url = None
     _version = None
+    _userName = None
+    _password = None
 
     _private_key = 'b344570eb80043d7c5ae9800c813b8842660898bf03cbd41e583b4e54af4e7fa'
 
-    def __init__(self, url='http://127.0.0.1:8000', version=None):
+    def __init__(self, url='http://127.0.0.1:8000', userName=None, password=None, version=None):
         self._url = '%s/api' % url
+        self._userName = userName
+        self._password = password
 
         version = '' if version is None else ';v=%s' % version
         self._post_request_header = {'Content-Type': 'application/json' + version}
@@ -137,7 +142,7 @@ class AElf(object):
         :return: executed result
         """
         return requests.post('%s/blockchain/executeRawTransaction' % self._url,
-                             json=raw_transaction, headers=self._post_request_header).json()
+                             json=raw_transaction, headers=self._post_request_header).content
 
     def get_transaction_result(self, transaction_id):
         """
@@ -196,6 +201,8 @@ class AElf(object):
         :return: True/False
         """
         json_data = {'Address': peer_address}
+        self._post_request_header['Authorization'] = "Basic " + base64.b64encode(
+            "{0}:{1}".format(self._userName, self._password).encode()).decode()
         return requests.post('%s/net/peer' % self._url, json=json_data, headers=self._post_request_header).json()
 
     def remove_peer(self, address):
@@ -205,6 +212,8 @@ class AElf(object):
         :return: True/False
         """
         api = '%s/net/peer?address=%s' % (self._url, address)
+        self._get_request_header['Authorization'] = "Basic " + base64.b64encode(
+            "{0}:{1}".format(self._userName, self._password).encode()).decode()
         status_code = requests.delete(api, headers=self._get_request_header).status_code
         return status_code == 200
 
@@ -213,7 +222,8 @@ class AElf(object):
         Get network info
         :return: network info
         """
-        return requests.get('%s/net/networkInfo' % self._url, headers=self._get_request_header).json()
+        result = requests.get('%s/net/networkInfo' % self._url, headers=self._get_request_header).json()
+        return result
 
     def get_task_queue_status(self):
         """
@@ -354,6 +364,18 @@ class AElf(object):
 
         chain_status = self.get_chain_status()
         return '%s_%s_%s' % (symbol.value, address, chain_status['ChainId'])
+
+    def calculate_transaction_fee(self, transaction):
+        """
+        calculate_transaction_fee_result
+        :param transaction: the json format transaction
+            {
+              "RawTransaction": "string",
+            }
+        :return: the CalculateTransactionFeeOutput formatted
+        """
+        return requests.post('%s/blockChain/calculateTransactionFee' % self._url,
+                             json=transaction, headers=self._post_request_header).json()
 
     def is_connected(self):
         """

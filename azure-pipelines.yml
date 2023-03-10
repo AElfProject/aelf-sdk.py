@@ -1,0 +1,78 @@
+# All tasks on Linux
+jobs:
+
+- job: build_all_window
+  displayName: Build all tasks (window)
+  pool:
+    vmImage: 'windows-2019'
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    inputs:
+      version: '6.0.x'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+  - script: |
+      python -m pip install --upgrade pip
+      pip install coincurve base58 requests protobuf==3.19.0
+  - powershell: ./scripts/aelf-node/start-window.ps1
+    displayName: 'Test'
+
+- job: build_all_linux
+  displayName: Build all tasks (Linux)
+  services:
+    redis:
+      image: redis
+      ports:
+      - 6379:6379
+  pool:
+    vmImage: ubuntu-latest
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      version: '6.0.x'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+  - script: cd scripts/aelf-node && bash start.sh
+    displayName: 'Deploy a full node'
+  - script: |
+      python -m pip install --upgrade pip
+      pip install coincurve base58 requests protobuf==3.19.0
+  - script: cd src && python test.py
+    displayName: 'pytest'    
+# All tasks on macOS
+- job: build_all_macos
+  displayName: Build all tasks (macos)
+  pool:
+    vmImage: macos-latest
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      version: '6.0.x'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+  - script: cd scripts/aelf-node && bash start-mac.sh
+    displayName: 'Deploy a full node'
+  - script: |
+      python -m pip install --upgrade pip
+      pip install coincurve base58 requests protobuf==3.19.0
+  - script: cd src && python test.py
+    displayName: 'pytest'
