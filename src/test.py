@@ -172,5 +172,10 @@ class AElfTest(unittest.TestCase):
         print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
 
+
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
