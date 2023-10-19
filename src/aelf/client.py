@@ -380,36 +380,41 @@ class AElf(object):
     def get_transferred_event(self, transaction_id):
         transfers = list()
         transaction_result = self.get_transaction_result(transaction_id)
-        transaction_log = transaction_result['logs']
+        transaction_log = transaction_result['Logs']
         if transaction_log is None:
             return transaction_result
 
-        contract_address = self.get_system_contract_address_string("AElf.ContractNames.Token")
+        contract_address = self.get_system_contract_address("AElf.ContractNames.Token")
         for log in transaction_log:
-            if log['name'] == 'Transferred' & log['Address'] == contract_address:
+            if log['Name'] == 'Transferred' & log['Address'] == contract_address:
                 transferred = Transferred()
                 non_indexed_bytes = base64.b16encode(log['NonIndexed'])
                 transferred.ParseFromString(non_indexed_bytes)
                 indexed_bytes = base64.b16encode(log['Indexed'])
-                from_bytes = indexed_bytes[0]
-                to_bytes = indexed_bytes[1]
-                symbol_bytes = indexed_bytes[2]
-                transferred['from'] = from_bytes
-                transferred['to'] = to_bytes
-                transferred['Symbol'] = symbol_bytes
+                transfer_index = Transferred()
+                transfer_index.ParseFromString(indexed_bytes[0])
+                transferred['From'] = transfer_index['From']
+
+                transfer_index = Transferred()
+                transfer_index.ParseFromString(indexed_bytes[1])
+                transferred['To'] = transfer_index['To']
+
+                transfer_index = Transferred()
+                transfer_index.ParseFromString(indexed_bytes[2])
+                transferred['Symbol'] = transfer_index['Symbol']
                 transfers.append(transferred)
                 return transfers
 
     def get_cross_chain_received(self, transaction_id):
         cross_chain_received = list()
         transaction_result = self.get_transaction_result(transaction_id)
-        transaction_log = transaction_result['logs']
+        transaction_log = transaction_result['Logs']
         if transaction_log is None:
             return transaction_result
 
-        contract_address = self.get_system_contract_address_string("AElf.ContractNames.Token")
+        contract_address = self.get_system_contract_address("AElf.ContractNames.Token")
         for log in transaction_log:
-            if log['name'] == 'CrossChainReceived' & log['Address'] == contract_address:
+            if log['Name'] == 'CrossChainReceived' & log['Address'] == contract_address:
                 transferred = Transferred()
                 non_indexed_bytes = base64.b16encode(log['NonIndexed'])
                 transferred.ParseFromString(non_indexed_bytes)
@@ -419,13 +424,13 @@ class AElf(object):
     def get_cross_chain_transferred(self, transaction_id):
         cross_chain_transferred = list()
         transaction_result = self.get_transaction_result(transaction_id)
-        transaction_log = transaction_result['logs']
+        transaction_log = transaction_result['Logs']
         if transaction_log is None:
             return transaction_result
 
-        contract_address = self.get_system_contract_address_string("AElf.ContractNames.Token")
+        contract_address = self.get_system_contract_address("AElf.ContractNames.Token")
         for log in transaction_log:
-            if log['name'] == 'CrossChainTransferred' & log['Address'] == contract_address:
+            if log['Name'] == 'CrossChainTransferred' & log['Address'] == contract_address:
                 transferred = Transferred()
                 non_indexed_bytes = base64.b16encode(log['NonIndexed'])
                 transferred.ParseFromString(non_indexed_bytes)

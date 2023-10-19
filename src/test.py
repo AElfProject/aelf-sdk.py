@@ -16,7 +16,7 @@ class AElfTest(unittest.TestCase):
         private_key_string = 'cd86ab6347d8e52bbbe8532141fc59ce596268143a308d1d40fedf385528b458'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
-        self.chain = AElf(self._url,"aelf","aelf")
+        self.chain = AElf(self._url, "aelf", "aelf")
         self.toolkit = AElfToolkit(self._url, self._private_key)
 
     def test_chain_api(self):
@@ -171,10 +171,14 @@ class AElfTest(unittest.TestCase):
 
         print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
-
-
-
-
+    def test_get_transfer_log_event(self):
+        to_address = self.chain.get_address_string_from_public_key(self._public_key)
+        transaction = self.toolkit.transfer(to_address, "ELF", 100000000, "transfer")
+        result = self.chain.send_transaction(transaction)
+        log_event = self.chain.get_transferred_event(result['transactionId'])
+        self.assertEqual(log_event[0]['symbol'], "ELF")
+        self.assertEqual(log_event[0]['amount'], 100000000)
+        self.assertEqual(log_event[0]['memo'], "transfer")
 
 
 if __name__ == '__main__':
