@@ -2,7 +2,7 @@ import unittest
 
 from coincurve import PrivateKey
 
-from aelf import Transaction
+from aelf import Transaction, TransferInput
 from aelf import AElf, AElfToolkit
 
 
@@ -172,7 +172,6 @@ class AElfTest(unittest.TestCase):
         print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
     def test_get_transfer_log_event(self):
-
         transfer_input = TransferInput()
         to_address_string = self.chain.get_address_string_from_public_key(self._public_key)
         transfer_input.to.value = base58.b58decode_check(to_address_string)
