@@ -172,9 +172,16 @@ class AElfTest(unittest.TestCase):
         print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
 
     def test_get_transfer_log_event(self):
-        to_address = self.chain.get_address_string_from_public_key(self._public_key)
-        transaction = self.toolkit.transfer(to_address, "ELF", 100000000, "transfer")
-        result = self.chain.send_transaction(transaction.SerializePartialToString().hex())
+
+        transfer_input = TransferInput()
+        to_address_string = self.chain.get_address_string_from_public_key(self._public_key)
+        transfer_input.to.value = base58.b58decode_check(to_address_string)
+        transfer_input.symbol = "ELF"
+        transfer_input.amount = 100000000
+        transfer_input.memo = "transfer"
+        multi_token_contract_address = self.aelf.get_system_contract_address('AElf.ContractNames.Token')
+        transaction = self._create_and_sign_transaction(multi_token_contract_address, 'Transfer', transfer_input)
+        result = self.chain.send_transaction(transaction)
         log_event = self.chain.get_transferred_event(result['transactionId'])
         self.assertEqual(log_event[0]['symbol'], "ELF")
         self.assertEqual(log_event[0]['amount'], 100000000)
