@@ -179,10 +179,10 @@ class AElfTest(unittest.TestCase):
         transfer_input.symbol = "ELF"
         transfer_input.amount = 100000000
         transfer_input.memo = "transfer"
-        multi_token_contract_address = self.aelf.get_system_contract_address('AElf.ContractNames.Token')
-        transaction = self._create_and_sign_transaction(multi_token_contract_address, 'Transfer', transfer_input)
-        result = self.chain.send_transaction(transaction)
-        log_event = self.chain.get_transferred_event(result['transactionId'])
+        multi_token_contract_address = self.chain.get_system_contract_address('AElf.ContractNames.Token')
+        transaction = self.toolkit._create_and_sign_transaction(multi_token_contract_address, 'Transfer', transfer_input)
+        result = self.chain.send_transaction(transaction.SerializePartialToString().hex())
+        log_event = self.chain.get_transferred_event(result['TransactionId'])
         self.assertEqual(log_event[0]['symbol'], "ELF")
         self.assertEqual(log_event[0]['amount'], 100000000)
         self.assertEqual(log_event[0]['memo'], "transfer")
