@@ -174,7 +174,7 @@ class AElfTest(unittest.TestCase):
     def test_get_transfer_log_event(self):
         to_address = self.chain.get_address_string_from_public_key(self._public_key)
         transaction = self.toolkit.transfer(to_address, "ELF", 100000000, "transfer")
-        result = self.chain.send_transaction(transaction)
+        result = self.chain.send_transaction(transaction.SerializePartialToString().hex())
         log_event = self.chain.get_transferred_event(result['transactionId'])
         self.assertEqual(log_event[0]['symbol'], "ELF")
         self.assertEqual(log_event[0]['amount'], 100000000)
