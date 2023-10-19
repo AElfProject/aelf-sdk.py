@@ -1,4 +1,5 @@
 import unittest
+import base58
 
 from coincurve import PrivateKey
 
