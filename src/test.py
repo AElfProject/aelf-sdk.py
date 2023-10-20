@@ -1,3 +1,4 @@
+import time
 import unittest
 import base58
 
@@ -174,18 +175,18 @@ class AElfTest(unittest.TestCase):
 
     def test_get_transfer_log_event(self):
         transfer_input = TransferInput()
-        to_address_string = self.chain.get_address_string_from_public_key(self._public_key)
-        transfer_input.to.value = base58.b58decode_check(to_address_string)
+        transfer_input.to.value = base58.b58decode_check("2wEoGxCttedmjnTmQ4FopBctTTY879FiUeCS1uWnR7Xd5jhqxm")
         transfer_input.symbol = "ELF"
-        transfer_input.amount = 100000000
+        transfer_input.amount = 1
         transfer_input.memo = "transfer"
         multi_token_contract_address = self.chain.get_system_contract_address('AElf.ContractNames.Token')
         transaction = self.toolkit._create_and_sign_transaction(multi_token_contract_address, 'Transfer', transfer_input)
         result = self.chain.send_transaction(transaction.SerializePartialToString().hex())
+        time.sleep(8)
         log_event = self.chain.get_transferred_event(result['TransactionId'])
-        self.assertEqual(log_event[0]['symbol'], "ELF")
-        self.assertEqual(log_event[0]['amount'], 100000000)
-        self.assertEqual(log_event[0]['memo'], "transfer")
+        self.assertEqual(log_event[0].symbol, "ELF")
+        self.assertEqual(log_event[0].amount, 1)
+        self.assertEqual(log_event[0].memo, "transfer")
 
 
 if __name__ == '__main__':

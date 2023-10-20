@@ -198,9 +198,9 @@ message ResourceTokenCharged {
 
 message Transferred {
     // The source address of the transferred token.
-    Address from = 1;
+    Address from_address = 1;
     // The destination address of the transferred token.
-    Address to = 2;
+    Address to_address = 2;
     // The symbol of the transferred token.
     string symbol = 3;
     // The amount of the transferred token.
@@ -211,9 +211,9 @@ message Transferred {
 
 message CrossChainTransferred {
     // The source address of the transferred token.
-    Address from = 1;
+    Address from_address = 1;
     // The destination address of the transferred token.
-    Address to = 2;
+    Address to_address = 2;
     // The symbol of the transferred token.
     string symbol = 3;
     // The amount of the transferred token.
@@ -228,9 +228,9 @@ message CrossChainTransferred {
 
 message CrossChainReceived {
     // The source address of the transferred token.
-    Address from = 1;
+    Address from_address = 1;
     // The destination address of the transferred token.
-    Address to = 2;
+    Address to_address = 2;
     // The symbol of the received token.
     string symbol = 3;
     // The amount of the received token.

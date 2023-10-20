@@ -381,27 +381,32 @@ class AElf(object):
         transfers = list()
         transaction_result = self.get_transaction_result(transaction_id)
         transaction_log = transaction_result['Logs']
-        if transaction_log is None:
+        if transaction_log is None or len(transaction_log) == 0:
             return transaction_result
 
-        contract_address = self.get_system_contract_address("AElf.ContractNames.Token")
+        contract_address = self.get_system_contract_address_string("AElf.ContractNames.Token")
         for log in transaction_log:
-            if log['Name'] == 'Transferred' & log['Address'] == contract_address:
+            if log['Name'] == 'Transferred' and log['Address'] == contract_address:
                 transferred = Transferred()
-                non_indexed_bytes = base64.b16encode(log['NonIndexed'])
+                non_indexed_str = log['NonIndexed']
+                non_indexed_bytes = base64.b64decode(non_indexed_str)
                 transferred.ParseFromString(non_indexed_bytes)
-                indexed_bytes = base64.b16encode(log['Indexed'])
-                transfer_index = Transferred()
-                transfer_index.ParseFromString(indexed_bytes[0])
-                transferred['From'] = transfer_index['From']
 
+                indexed_bytes = log['Indexed']
                 transfer_index = Transferred()
-                transfer_index.ParseFromString(indexed_bytes[1])
-                transferred['To'] = transfer_index['To']
+                transfer_index.ParseFromString(base64.b64decode(indexed_bytes[2]))
+                transferred.symbol = transfer_index.symbol
 
-                transfer_index = Transferred()
-                transfer_index.ParseFromString(indexed_bytes[2])
-                transferred['Symbol'] = transfer_index['Symbol']
+                transfer_index0 = Transferred()
+                bytes1 = base64.b64decode(indexed_bytes[0])
+                transfer_index0.ParseFromString(bytes1)
+                from_address = base58.b58encode(transfer_index0.from_address.value)
+                transferred.from_address.value = from_address
+
+                transfer_index1 = Transferred()
+                transfer_index1.ParseFromString(base64.b64decode(indexed_bytes[1]))
+                to_address = base58.b58encode(transfer_index1.to_address.value)
+                transferred.to_address.value = to_address
                 transfers.append(transferred)
                 return transfers
 
@@ -416,7 +421,7 @@ class AElf(object):
         for log in transaction_log:
             if log['Name'] == 'CrossChainReceived' & log['Address'] == contract_address:
                 transferred = Transferred()
-                non_indexed_bytes = base64.b16encode(log['NonIndexed'])
+                non_indexed_bytes = base64.b64decode(log['NonIndexed'])
                 transferred.ParseFromString(non_indexed_bytes)
                 cross_chain_received.append(transferred)
                 return cross_chain_received
@@ -432,7 +437,7 @@ class AElf(object):
         for log in transaction_log:
             if log['Name'] == 'CrossChainTransferred' & log['Address'] == contract_address:
                 transferred = Transferred()
-                non_indexed_bytes = base64.b16encode(log['NonIndexed'])
+                non_indexed_bytes = base64.b64decode(log['NonIndexed'])
                 transferred.ParseFromString(non_indexed_bytes)
                 cross_chain_transferred.append(transferred)
                 return cross_chain_transferred
