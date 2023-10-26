@@ -195,3 +195,54 @@ message ResourceTokenCharged {
     string symbol = 1;
     sint64 amount = 2;
 }
+
+message Transferred {
+    // The source address of the transferred token.
+    Address from_address = 1;
+    // The destination address of the transferred token.
+    Address to_address = 2;
+    // The symbol of the transferred token.
+    string symbol = 3;
+    // The amount of the transferred token.
+    int64 amount = 4;
+    // The memo.
+    string memo = 5;
+}
+
+message CrossChainTransferred {
+    // The source address of the transferred token.
+    Address from_address = 1;
+    // The destination address of the transferred token.
+    Address to_address = 2;
+    // The symbol of the transferred token.
+    string symbol = 3;
+    // The amount of the transferred token.
+    int64 amount = 4;
+    // The memo.
+    string memo = 5;
+    // The destination chain id.
+    int32 to_chain_id = 6;
+    // The chain id of the token.
+    int32 issue_chain_id = 7;
+}
+
+message CrossChainReceived {
+    // The source address of the transferred token.
+    Address from_address = 1;
+    // The destination address of the transferred token.
+    Address to_address = 2;
+    // The symbol of the received token.
+    string symbol = 3;
+    // The amount of the received token.
+    int64 amount = 4;
+    // The memo.
+    string memo = 5;
+    // The destination chain id.
+    int32 from_chain_id = 6;
+    // The chain id of the token.
+    int32 issue_chain_id = 7;
+    // The parent chain height of the transfer transaction.
+    int64 parent_chain_height = 8;
+    // The id of transfer transaction.
+    Hash transfer_transaction_id = 9;
+}

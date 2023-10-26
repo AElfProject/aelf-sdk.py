@@ -1,8 +1,10 @@
+import time
 import unittest
+import base58
 
 from coincurve import PrivateKey
 
-from aelf import Transaction
+from aelf import Transaction, TransferInput
 from aelf import AElf, AElfToolkit
 
 
@@ -16,7 +18,7 @@ class AElfTest(unittest.TestCase):
         private_key_string = 'cd86ab6347d8e52bbbe8532141fc59ce596268143a308d1d40fedf385528b458'
         self._private_key = PrivateKey(bytes(bytearray.fromhex(private_key_string)))
         self._public_key = self._private_key.public_key.format(compressed=False)
-        self.chain = AElf(self._url,"aelf","aelf")
+        self.chain = AElf(self._url, "aelf", "aelf")
         self.toolkit = AElfToolkit(self._url, self._private_key)
 
     def test_chain_api(self):
@@ -103,7 +105,7 @@ class AElfTest(unittest.TestCase):
         print('# get_network_info', net_work_info)
         print('# remove_peer')
         self.assertTrue(self.chain.remove_peer('127.0.0.1:6800'))
-        self.assertEqual(net_work_info['Version'], '1.2.3.0')
+        self.assertEqual(net_work_info['Version'], '1.6.0.0')
         print('# add_peer')
         self.assertFalse(self.chain.add_peer('127.0.0.1:6800'))
 
@@ -170,6 +172,21 @@ class AElfTest(unittest.TestCase):
         self.assertLessEqual(calculate_transaction_fee_output['TransactionFee']['ELF'], 14000000)
 
         print('# calculate_transaction_fee_output', calculate_transaction_fee_output)
+
+    def test_get_transfer_log_event(self):
+        transfer_input = TransferInput()
+        transfer_input.to.value = base58.b58decode_check("2wEoGxCttedmjnTmQ4FopBctTTY879FiUeCS1uWnR7Xd5jhqxm")
+        transfer_input.symbol = "ELF"
+        transfer_input.amount = 1
+        transfer_input.memo = "transfer"
+        multi_token_contract_address = self.chain.get_system_contract_address('AElf.ContractNames.Token')
+        transaction = self.toolkit._create_and_sign_transaction(multi_token_contract_address, 'Transfer', transfer_input)
+        result = self.chain.send_transaction(transaction.SerializePartialToString().hex())
+        time.sleep(8)
+        log_event = self.chain.get_transferred_event(result['TransactionId'])
+        self.assertEqual(log_event[0].symbol, "ELF")
+        self.assertEqual(log_event[0].amount, 1)
+        self.assertEqual(log_event[0].memo, "transfer")
 
 
 if __name__ == '__main__':

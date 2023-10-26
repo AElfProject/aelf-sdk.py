@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='aelf-client',
-    version='1.2.3',
+    version='1.6.0',
     description='Python SDK for AElf',
     url='https://github.com/AElf/aelf-sdk.py',
     packages=['aelf'],

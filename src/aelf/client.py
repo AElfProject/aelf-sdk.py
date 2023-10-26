@@ -7,7 +7,7 @@ import requests
 from coincurve import PrivateKey
 from google.protobuf.wrappers_pb2 import StringValue
 
-from aelf.types_pb2 import Transaction, Hash, Address, TransactionFeeCharged, ResourceTokenCharged
+from aelf.types_pb2 import Transaction, Hash, Address, TransactionFeeCharged, ResourceTokenCharged, Transferred, CrossChainTransferred, CrossChainReceived
 
 
 class AElf(object):
@@ -376,6 +376,71 @@ class AElf(object):
         """
         return requests.post('%s/blockChain/calculateTransactionFee' % self._url,
                              json=transaction, headers=self._post_request_header).json()
+
+    def get_transferred_event(self, transaction_id):
+        transfers = list()
+        transaction_result = self.get_transaction_result(transaction_id)
+        transaction_log = transaction_result['Logs']
+        if transaction_log is None or len(transaction_log) == 0:
+            return transaction_result
+
+        contract_address = self.get_system_contract_address_string("AElf.ContractNames.Token")
+        for log in transaction_log:
+            if log['Name'] == 'Transferred' and log['Address'] == contract_address:
+                transferred = Transferred()
+                non_indexed_str = log['NonIndexed']
+                non_indexed_bytes = base64.b64decode(non_indexed_str)
+                transferred.ParseFromString(non_indexed_bytes)
+
+                indexed_bytes = log['Indexed']
+                transfer_index = Transferred()
+                transfer_index.ParseFromString(base64.b64decode(indexed_bytes[2]))
+                transferred.symbol = transfer_index.symbol
+
+                transfer_index0 = Transferred()
+                bytes1 = base64.b64decode(indexed_bytes[0])
+                transfer_index0.ParseFromString(bytes1)
+                from_address = base58.b58encode(transfer_index0.from_address.value)
+                transferred.from_address.value = from_address
+
+                transfer_index1 = Transferred()
+                transfer_index1.ParseFromString(base64.b64decode(indexed_bytes[1]))
+                to_address = base58.b58encode(transfer_index1.to_address.value)
+                transferred.to_address.value = to_address
+                transfers.append(transferred)
+                return transfers
+
+    def get_cross_chain_received(self, transaction_id):
+        cross_chain_received = list()
+        transaction_result = self.get_transaction_result(transaction_id)
+        transaction_log = transaction_result['Logs']
+        if transaction_log is None:
+            return transaction_result
+
+        contract_address = self.get_system_contract_address("AElf.ContractNames.Token")
+        for log in transaction_log:
+            if log['Name'] == 'CrossChainReceived' & log['Address'] == contract_address:
+                transferred = Transferred()
+                non_indexed_bytes = base64.b64decode(log['NonIndexed'])
+                transferred.ParseFromString(non_indexed_bytes)
+                cross_chain_received.append(transferred)
+                return cross_chain_received
+
+    def get_cross_chain_transferred(self, transaction_id):
+        cross_chain_transferred = list()
+        transaction_result = self.get_transaction_result(transaction_id)
+        transaction_log = transaction_result['Logs']
+        if transaction_log is None:
+            return transaction_result
+
+        contract_address = self.get_system_contract_address("AElf.ContractNames.Token")
+        for log in transaction_log:
+            if log['Name'] == 'CrossChainTransferred' & log['Address'] == contract_address:
+                transferred = Transferred()
+                non_indexed_bytes = base64.b64decode(log['NonIndexed'])
+                transferred.ParseFromString(non_indexed_bytes)
+                cross_chain_transferred.append(transferred)
+                return cross_chain_transferred
 
     def is_connected(self):
         """
