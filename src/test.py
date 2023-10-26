@@ -105,7 +105,7 @@ class AElfTest(unittest.TestCase):
         print('# get_network_info', net_work_info)
         print('# remove_peer')
         self.assertTrue(self.chain.remove_peer('127.0.0.1:6800'))
-        self.assertEqual(net_work_info['Version'], '1.2.3.0')
+        self.assertEqual(net_work_info['Version'], '1.6.0.0')
         print('# add_peer')
         self.assertFalse(self.chain.add_peer('127.0.0.1:6800'))
 
